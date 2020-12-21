@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;500&display=swap");
+html {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(37, 37, 37);
+  flex-direction: column;
+}
+
+.button-container {
+  border: 2px solid #000;
+  padding: 10px;
+  border-radius: 7px;
+  /* inset means box-shadow will be on the inside rather than the outside 
+  0-horizontal offset--(shadow will be only up and down)
+  20px-vertical offset--(darkness happening above start button)
+  4px-blur--how solid the colour is
+  -19px-spread--a negative value will reduce the spread
+  rgba()-colour-red green blue alpha(opacity)
+  */
+  box-shadow: inset 0 20px 4px -19px rgba(255, 255, 255, 0.7);
+}
+
+button {
+  cursor: pointer;
+  outline: none;
+  width: 120px;
+  height: 75px;
+  font-family: Barlow, sans-serif;
+  font-size: 25px;
+  color: #fff;
+  /* similar to box-shadow */
+  text-shadow: 0 2px 5px #000;
+  background: linear-gradient(to top, #696969, #575757);
+  border: 2px solid #000;
+  border-radius: 7px;
+  /* 2 box shadoes */
+  box-shadow: inset 0 20px 4px -19px rgba(255, 255, 255, 0.4), 0, 12px,
+    12px 0 rgba(0, 0, 0, 0.3);
+}
+button:hover {
+  /*on hover we change the gradient position from 'to top' to 'to bottom'  */
+  background: linear-gradient(to bottom, #696969, #575757);
+}
+button:active {
+  /* on click button will go 3px down */
+  transform: translateY(3px);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.7);
+}
