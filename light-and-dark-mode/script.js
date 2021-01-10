@@ -36,12 +36,25 @@ function switchTheme(event) {
   if (event.target.checked) {
     //Document.documentElement returns the Element that is the root element of the document (for example, the <html> element for HTML documents).
     document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
     darkMode();
   } else {
     document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
     lightMode();
   }
 }
-
 // Event Listener
 toggleSwitch.addEventListener("change", switchTheme);
+// Check Local Storage for Theme
+const currentTheme = localStorage.getItem("theme");
+console.log("currentTheme", currentTheme);
+// check if theme exists in local storage
+if (currentTheme) {
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  // set switch to dark theme if local storage has dark theme on page load
+  if (currentTheme == "dark") {
+    toggleSwitch.checked = true;
+    darkMode();
+  }
+}
