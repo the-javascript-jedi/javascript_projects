@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Task</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+        integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
+        crossorigin="anonymous" />
+</head>
+<body id="home">
+    <section id="showcase" class="py-1">
+        <div class="container">
+            <p class="border-top-yellow txt-primary title">nAMD</p>
+            <h1 class="txt-primary title">PROACTIVE EXTENDED DOSING UP TO Q16 <sup id="quantity">1-3,9</sup></h1>
+            <!-- chart container -->
+            <div class="chart-container">
+                <div class="chart-toggle-buttons">
+                    <!-- buttons placeholder -->
+                    <div class="button-group">
+                        <a class="btn btn-primary" href="javascript:void(0)" id="fourweek">4-WEEK EXTENSION</a>
+                        <a class="btn btn-inactive" href="javascript:void(0)" id="twoweek">2-WEEK EXTENSION</a>
+                    </div>
+                </div>
+                <!-- charts -->
+                <div class="charts-placeholder">
+                    <!-- chart-1 -->
+<div class="chart-size" id="chart-1">
+    <img id="altairImage" src="./img/altair_logo.png" alt="altair logo" />
+    <canvas id="myChart-1" width="400" height="400"></canvas>
+</div>
+<!-- chart-2 -->
+<div class="chart-size" id="chart-2">
+    <img id="viewsImage" src="./img/views_image.png" alt="altair logo" />
+    <canvas id="myChart-2" width="400" height="400"></canvas>
+</div>
+<div class="chart-legends">
+    <p>
+        <span class="box"></span>
+        <span class="legend-text txt-primary ">Proportion of patients achieving <strong>12 week</strong> dosing at 96 weeks</span></p>
+    <p><span class="box"></span><span class="legend-text txt-primary "> Proportion of patients achieving <strong>16 week</strong> dosing at 96 weeks</span></p>
+</div>
+                </div>
+              <!-- chart footer -->
+              <div class="chart-footer">
+<div class="chart-title">
+    Achieve sustainer VA gains with as few as 3 injections in Year 2<br />
+    when proactive T&E is used with EYLEA <sup>@12</sup>
+</div>
+<div class="chart-footer-right">
+    <p>T&E WITH <br /> RANIBIZUMAB</p>
+</div>
+              </div>
+                
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container position_relative">
+            <p>Trials Not included for Direct Comparison</p>
+            <img src="./img/eylea_logo.png" alt="eylea_logo" id="eylea">
+        </div>
+    </footer>
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+        integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+        crossorigin="anonymous"></script>
+        <script src="./js/script.js"></script>
+</body>
+</html>
