@@ -94,7 +94,7 @@ a:active {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   max-width: 95%;
   width: 500px;
-  animation: modalopen 5s;
+  animation: modalopen 1s;
 }
 .modal-header {
   background: var(--primary-color);
