@@ -1,10 +1,21 @@
 // Code goes here!
+enum ProjectStatus {Active, Finsihed}
+// custom type using class so we can instantiate it
+class Project{    
+    constructor(public id:string,public title:string,public description:string,public people:number,public status:ProjectStatus){
+
+    }
+}
+// custom type - function that receives items and does something with it
+// return type is void, whoever passes a listener gets expects some items when listener fires
+type Listener=(items:Project[])=>void;
+
 // Project State management
 class ProjectState{
     // listeners is for a subscription pattern,
     // listeners is an array of functions which will be called when something changes
-    private listeners:any=[]
-    private projects:any=[];
+    private listeners:Listener[]=[]
+    private projects:Project[]=[];
     // to access the this.instance inside the static method
     private static instance:ProjectState;
 
@@ -21,19 +32,16 @@ class ProjectState{
         return this.instance;
     }
     // add listener function
-    addListener(listenerFn:Function){
+    addListener(listenerFn:Listener){
         // push listener function to the listeners array
         this.listeners.push(listenerFn);
     }
 
     // add project function
     addProject(title:string,description:string,numOfPeople:number){
-        const newProject={
-            id:Math.random().toString(),
-            title:title,
-            description:description,
-            people:numOfPeople,            
-        }
+        //Instantiate newProject using the class Project
+        const newProject=new Project(Math.random().toString(),title,description,numOfPeople,ProjectStatus.Active);
+        
         this.projects.push(newProject);
         // loop through all listeners when data changes
         for(const listenerFn of this.listeners){
@@ -102,7 +110,7 @@ class ProjectList{
     templateElement:HTMLTemplateElement;
     hostElement:HTMLDivElement;
     element:HTMLElement;
-    assignedProjects:any[];
+    assignedProjects:Project[];
     // the type of the project should be 'active'|'finished'
     // we must get this type when the project is instantiated
     constructor(private type:'active'|'finished'){
@@ -125,8 +133,16 @@ class ProjectList{
         this.element.id=`${this.type}-projects`;    
         // register a listener function - we need to pass a function to addListener function
         //projects is received from projectState
-        projectState.addListener((projects:any[])=>{
-            this.assignedProjects=projects;
+        projectState.addListener((projects:Project[])=>{
+            // filter the array based on the active|inactive class
+            const relevantProjects=projects.filter(prj=>{
+                if(this.type==='active'){
+                    return prj.status===ProjectStatus.Active;
+                }else{
+                    return prj.status===ProjectStatus.Finsihed;
+                }
+            })
+            this.assignedProjects=relevantProjects;
             this.renderProjects();
         })
         
@@ -138,9 +154,10 @@ class ProjectList{
     private renderProjects(){
         // get id of the list element
         const listEl=document.getElementById(`${this.type}-project-list`)! as HTMLUListElement;
-        const listItem=document.createElement('li');
+        listEl.innerHTML='';
         //render listItem based on form input and attach to the ul
         for(const prjItem of this.assignedProjects){
+            const listItem=document.createElement('li');
             listItem.textContent=prjItem.title;
             listEl.appendChild(listItem)  
         }
