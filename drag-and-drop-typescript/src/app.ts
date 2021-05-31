@@ -1,4 +1,51 @@
 // Code goes here!
+// Project State management
+class ProjectState{
+    // listeners is for a subscription pattern,
+    // listeners is an array of functions which will be called when something changes
+    private listeners:any=[]
+    private projects:any=[];
+    // to access the this.instance inside the static method
+    private static instance:ProjectState;
+
+    private constructor(){
+
+    }
+    // getInstance - static method to check if this.instance is a thing
+    // return this.instancer if it exists else create an instance
+    static getInstance(){
+        if(this.instance){
+            return this.instance;
+        }
+        this.instance=new ProjectState();
+        return this.instance;
+    }
+    // add listener function
+    addListener(listenerFn:Function){
+        // push listener function to the listeners array
+        this.listeners.push(listenerFn);
+    }
+
+    // add project function
+    addProject(title:string,description:string,numOfPeople:number){
+        const newProject={
+            id:Math.random().toString(),
+            title:title,
+            description:description,
+            people:numOfPeople,            
+        }
+        this.projects.push(newProject);
+        // loop through all listeners when data changes
+        for(const listenerFn of this.listeners){
+            // pass what is relevant to listener function
+            // pass a copy of the array using slice
+            listenerFn(this.projects.slice());
+        }
+    }
+
+}
+// only one object of instance will be needed for state management- static method 
+const projectState=ProjectState.getInstance();
 interface Validatable{
     // values other than value are optional-specified using ? symbol
     value:string|number;
@@ -50,6 +97,72 @@ function autobind(_target:any,_methodName:string,descriptor:PropertyDescriptor){
     }
     return adjDescriptor;
 }
+// ProjectList Class
+class ProjectList{
+    templateElement:HTMLTemplateElement;
+    hostElement:HTMLDivElement;
+    element:HTMLElement;
+    assignedProjects:any[];
+    // the type of the project should be 'active'|'finished'
+    // we must get this type when the project is instantiated
+    constructor(private type:'active'|'finished'){
+        // initialize assignedProjects
+        this.assignedProjects=[]
+        //we pass the created template from index.html
+        this.templateElement=document.getElementById('project-list')! as HTMLTemplateElement; 
+        //the id we should append our html
+        this.hostElement=document.getElementById('app')! as HTMLDivElement;
+        //we pass a pointer at your template element to the import node, 
+        //.content is is a property that exists on HTML template element and it simply gives a reference to the content of a template.
+        //(true) the second element specifies if we should take a deep clone or not 
+        const importedNode=document.importNode(this.templateElement.content,true);
+        console.log("importedNode--ProjectList",importedNode)
+        // we store the first element in the imported template
+        this.element=importedNode.firstElementChild as HTMLElement;
+        // we get the firstElementChild inside template#project-list which is section.projects 
+        console.log("this.element--ProjectList",this.element)
+        // add an id to the form - id is dynamic depending on the instantiated project ('active'|'finished')
+        this.element.id=`${this.type}-projects`;    
+        // register a listener function - we need to pass a function to addListener function
+        //projects is received from projectState
+        projectState.addListener((projects:any[])=>{
+            this.assignedProjects=projects;
+            this.renderProjects();
+        })
+        
+        // attach element/render list to dom() 
+        this.attach();        
+        this.renderContent();
+    }
+    // render projects based on input submuit
+    private renderProjects(){
+        // get id of the list element
+        const listEl=document.getElementById(`${this.type}-project-list`)! as HTMLUListElement;
+        const listItem=document.createElement('li');
+        //render listItem based on form input and attach to the ul
+        for(const prjItem of this.assignedProjects){
+            listItem.textContent=prjItem.title;
+            listEl.appendChild(listItem)  
+        }
+    }
+
+    // add text to header inside template#project-list
+    private renderContent(){
+      const listId=`${this.type}-project-list`;
+      // search the template and add an id for the ul
+      this.element.querySelector('ul')!.id=listId;
+      //   add a header for the template
+      this.element.querySelector('h2')!.textContent=this.type.toUpperCase()+' PROJECTS';
+    }
+
+    // attach elements to dom - 
+    private attach(){
+        // beforeend - element must be inserted before closing tag of host element
+        this.hostElement.insertAdjacentElement('beforeend',this.element)
+    }
+
+}
+
 
 // Project Input Class
 class ProjectInput{
@@ -68,10 +181,10 @@ class ProjectInput{
         //.content is is a property that exists on HTML template element and it simply gives a reference to the content of a template.
         //(true) the second element specifies if we should take a deep clone or not 
         const importedNode=document.importNode(this.templateElement.content,true);
-        console.log("importedNode",importedNode)
+        console.log("importedNode--ProjectInput",importedNode)
         this.element=importedNode.firstElementChild as HTMLFormElement;
         // we get the firstElementChild inside template which is a form 
-        console.log("this.element",this.element)
+        console.log("this.element-ProjectInput",this.element)
         // add an id to the form
         this.element.id="user-input";
         // select input elements inside the template
@@ -137,6 +250,8 @@ class ProjectInput{
         if(Array.isArray(userInput)){
             const [title,desc,people]=userInput;
             console.log("title,desc,people---",title,desc,people);
+            // pass the values to projectState
+            projectState.addProject(title,desc,people);
             // clear inputs
             this.clearInputs();
         }
@@ -155,3 +270,6 @@ class ProjectInput{
 }
 // instantiate the class
 const prjInput = new ProjectInput();
+// instantiate the list
+const activePrjList = new ProjectList('active');
+const finishedPrjList = new ProjectList('finished');
