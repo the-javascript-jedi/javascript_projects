@@ -1,5 +1,10 @@
-namespace App{
-    //***ProjectList Class***/
+import {DragTarget} from '../models/drag-drop-interfaces.js';
+import {Project,ProjectStatus} from '../models/project-model.js';
+import {Component} from './base-component.js';
+import {autobind} from '../decorators/autobind-decorator.js';
+import {projectState} from '../state/project-state.js';
+import {ProjectItem} from './project-item.js';
+//***ProjectList Class***/
 //set generic types for base class we are inheriting-<HTMLDivElement,HTMLElement>
 export class ProjectList extends Component<HTMLDivElement,HTMLElement> implements DragTarget{   
     assignedProjects:Project[];
@@ -93,5 +98,4 @@ export class ProjectList extends Component<HTMLDivElement,HTMLElement> implement
         }
     }
    
-}
 }

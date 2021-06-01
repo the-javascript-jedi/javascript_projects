@@ -1,5 +1,4 @@
-namespace App{
-    // autobind decorator - to  bind the this keyword with the calling method
+// autobind decorator - to  bind the this keyword with the calling method
 //alternatively use this.submitHandler.bind(this) or an arrow function
 //specify "_" infront of variable if it is not used _target
 export function autobind(_target:any,_methodName:string,descriptor:PropertyDescriptor){
@@ -12,5 +11,4 @@ export function autobind(_target:any,_methodName:string,descriptor:PropertyDescr
         }   
     }
     return adjDescriptor;
-}
 }

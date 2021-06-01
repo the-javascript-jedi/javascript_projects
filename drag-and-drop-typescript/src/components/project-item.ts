@@ -1,6 +1,9 @@
-/// <reference path="base-component.ts"/>
-namespace App{
-    //***ProjectItem Class ***/ 
+
+import {Draggable} from '../models/drag-drop-interfaces.js';
+import {Project} from '../models/project-model.js';
+import {Component} from './base-component.js'
+
+//***ProjectItem Class ***/ 
 //set generic types for base class we are inheriting
 //we will use this class to generate the individual the project list items
 // when we implement the implements Draggable interface it forces us to implement two methods
@@ -55,5 +58,4 @@ export class ProjectItem extends Component<HTMLUListElement,HTMLLIElement> imple
         this.element.querySelector('h3')!.textContent=this.persons+' assigned';
         this.element.querySelector('p')!.textContent=this.project.description;
     }
-}
 }

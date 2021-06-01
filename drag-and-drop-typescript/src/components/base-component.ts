@@ -1,5 +1,4 @@
-namespace App{
-    //***Component Base Class ***/ 
+//***Component Base Class ***/ 
 //UI user interface components which we render on the screen
 // we use generics to specify the type of the element
 //this class can only be inherited but never instantiated
@@ -43,5 +42,4 @@ export abstract class Component<T extends HTMLElement,U extends HTMLElement>{
     // private abstract methods are not supported so use public abstract methods
     abstract configure():void;
     abstract renderContent():void;
-}
 }

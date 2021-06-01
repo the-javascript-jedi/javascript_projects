@@ -1,5 +1,6 @@
-namespace App{
-    // custom type - function that receives items and does something with it
+import {Project,ProjectStatus} from '../models/project-model.js';
+
+// custom type - function that receives items and does something with it
 // return type is void, whoever passes a listener gets expects some items when listener fires
 // we also don't know whether our listener will return an array of projects
 // so for the function type we will need a generic type so we can set this from outside
@@ -71,4 +72,3 @@ export class ProjectState extends State<Project>{
 }
 // only one object of instance will be needed for state management- static method 
 export const projectState=ProjectState.getInstance();
-}
