@@ -62,14 +62,31 @@ class ProjectState extends State<Project>{
         const newProject=new Project(Math.random().toString(),title,description,numOfPeople,ProjectStatus.Active);
         
         this.projects.push(newProject);
-        // loop through all listeners when data changes
-        for(const listenerFn of this.listeners){
+        //re-render project
+        this.updateListeners();
+    }
+
+    // move project
+    //project id and status will be received
+    moveProject(projectId:string,newStatus:ProjectStatus){
+        //find the project based on the id and flip the status
+        const project=this.projects.find(prj=>prj.id===projectId);
+        //change status only if project is present and projectStatus is different from existing status
+        if(project&&project.status!==newStatus){
+            project.status=newStatus;
+            //re-render project
+            this.updateListeners();
+        }
+    }
+     //we call updateListeners when something changed about our project and we need a re-render
+     // loop through all listeners when data changes
+     private updateListeners(){
+         for(const listenerFn of this.listeners){
             // pass what is relevant to listener function
             // pass a copy of the array using slice
             listenerFn(this.projects.slice());
-        }
-    }
-
+            }
+     }     
 }
 // only one object of instance will be needed for state management- static method 
 const projectState=ProjectState.getInstance();
@@ -257,8 +274,13 @@ class ProjectList extends Component<HTMLDivElement,HTMLElement> implements DragT
         }
        
     }
+     //@autobind
     dropHandler(event:DragEvent){
         console.log("dropHandler-event",event.dataTransfer!.getData('text/plain'));
+        const prjId=event.dataTransfer!.getData('text/plain');
+        //do re-render - 1)pass the project id 2)the status
+        //set the ProjectStatus.Active||ProjectStatus.Finished based on enum        
+        projectState.moveProject(prjId,this.type==="active"?ProjectStatus.Active:ProjectStatus.Finsihed)
     }
     //when we leave this element with a dragged element
     @autobind
@@ -273,7 +295,8 @@ class ProjectList extends Component<HTMLDivElement,HTMLElement> implements DragT
         // implement drag events
         this.element.addEventListener('dragover',this.dragOverHandler);
         this.element.addEventListener('dragleave',this.dragLeaveHandler);
-        this.element.addEventListener('drop',this.dropHandler);
+        //configure the bind method to calling class or specify the autobind function
+        this.element.addEventListener('drop',this.dropHandler.bind(this));
 
         // register a listener function - we need to pass a function to addListener function
         //projects is received from projectState
