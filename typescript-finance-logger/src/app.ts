@@ -1,4 +1,5 @@
 import {Invoice} from './classes/Invoice.js';
+import { ListTempalte } from './classes/ListTemplate.js';
 import {Payment} from './classes/Payment.js';
 import {HasFormatter} from './interfaces/HasFormatter.js'
 
@@ -16,7 +17,12 @@ console.log(anchor.href)
  const tofrom=document.querySelector('#tofrom') as HTMLInputElement;
  const details=document.querySelector('#details') as HTMLInputElement;
  const amount=document.querySelector('#amount') as HTMLInputElement;
+// list template instance
+const ul=document.querySelector("ul")!;
+// ListTempalte class where we pass the container ul to be created
+const list=new ListTempalte(ul);
 
+//  submit button
 form.addEventListener('submit',(e:Event):void=>{
     e.preventDefault();
     //HasFormatter interface type
@@ -28,7 +34,8 @@ form.addEventListener('submit',(e:Event):void=>{
         // if ddl value is payment
         doc=new Payment(tofrom.value,details.value,amount.valueAsNumber);
     }
-
+    // render the ul
+    list.render(doc,type.value,'end')
     console.log('doc',doc);
 })
 
