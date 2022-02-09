@@ -1,5 +1,8 @@
 var l = "2222";
+// value 5 is not present in the arrays - center value
+//a array is for calculating the button text
 var a = ["1", "2", "3", "6", "9", "8", "7", "4"];
+//b array is for getting the id of the button
 var b = ["1", "2", "3", "6", "9", "8", "7", "4"];
 
 var rotate = function() {
