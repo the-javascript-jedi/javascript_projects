@@ -14,6 +14,7 @@ var rotate = function() {
     a[0] = l;
     // set the l value as last value
     l = a[7];
+    //set the value of the button
     for (var i = 0; i < 8; i++) {
         console.log("b[i]",b[i]);
         document.getElementById("btn" + b[i]).innerText = a[i];
