@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="chartCard">
+        <div class="chartBox">
+            <canvas id="myChart"></canvas>
+            Start:<input id="start" type="date" min="2021-11-01" max="2021-11-03" value="2021-11-02"/> 
+            End:<input id="end" type="date" min="2021-11-04" max="2021-11-07" value="2021-11-05"/><br/>
+            <button onClick="filterDate()">Filter</button>
+            <button onClick="resetDate()">Reset</button>
+        </div>
+    </div>
+    <!-- chart js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <!-- date fns -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+   <script src="./script.js"></script>
+
+</body>
+
+</html>
