@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="chartCard">
+        <div class="chartBox">
+            <canvas id="myChart"></canvas>
+            <div>
+                <input type="checkbox" onclick="updateChart(this)" checked="" name="financials" value="0"/>Cost
+            </div>
+            <div>
+                <input type="checkbox" onclick="updateChart(this)" checked="" name="financials" value="1"/>Revenue
+            </div>
+            <div>
+                <input type="checkbox" onclick="updateChart(this)" checked="" name="financials" value="2"/>Profit
+            </div>
+        </div>
+    </div>
+    <!-- chart js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <!-- date fns -->  
+   <script src="./script.js"></script>
+
+</body>
+
+</html>
