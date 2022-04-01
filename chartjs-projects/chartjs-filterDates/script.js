@@ -55,6 +55,8 @@ function filterDate() {
   const start = start1.setHours(0, 0, 0, 0);
   const end1 = new Date(document.getElementById("end").value);
   const end = end1.setHours(0, 0, 0, 0);
+  console.log("start", start);
+  console.log("end", end);
   // filter dates based on the start and end dates
   const filterDates = convertedDates.filter(function (date) {
     return date >= start && date <= end;

@@ -26,16 +26,15 @@ const successTracker = {
     console.log("ctx", ctx);
     // success line
     ctx.strokeStyle = "green";
-    // Line//
     // x0-starting point on horizontal line, left/right
     // y0-starting point on vertical line, top/bottom
     // x1-ending point on horizontal line, left/right(length of horizontal line)
     // y1-ending point on vertical line, top/bottom(length of vertical line)
     //y.getPixelForValue(12)-specifies the 12th point in y axis
-    ctx.strokeRect(left, y.getPixelForValue(10), width, 0);
+    ctx.strokeRect(left, y.getPixelForValue(12), width, 0);
     //restores the most recently saved canvas state by popping the top entry in the drawing state stack
     ctx.restore();
-    // success background//
+    // success background
     ctx.fillStyle = "rgba(0,200,0,0.2)";
     // we minus the top value which contains the legend data
     //y.getPixelForValue(12)-specifies the 12th point in y axis
