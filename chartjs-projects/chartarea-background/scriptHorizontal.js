@@ -52,7 +52,6 @@ const config = {
   },
   plugins: [chartAreaPlugin],
 };
-
 // render init block
-const myChart = new Chart(document.getElementById("myChart"), config);
+const myChart = new Chart(document.getElementById("myChartHorizontal"), config);
 console.table(myChart.chartArea);
