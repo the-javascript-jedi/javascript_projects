@@ -1,0 +1,16 @@
+.chartBox {
+  width: 600px;
+  padding: 20px;
+  border-radius: 20px;
+  border: solid 1px greenyellow;
+  background: white;
+}
+table{
+  margin-top: 10px;
+}
+table,tr,th,td{
+  padding: 10px;
+  border: 2px solid #666;;
+  width: 100%;
+  border-collapse: collapse;
+}
