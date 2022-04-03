@@ -18,8 +18,27 @@ const data = {
     },
   ],
 };
-//plugin -
+//plugin - chartAreaPlugin
+const chartAreaPlugin = {
+  id: "chartAreaPlugin",
+  // beforeDraw - before chartjs values are put in canvas
+  // afterDraw - after chartjs values are put in canvas
+  beforeDraw(chart, args, options) {
+    const {
+      ctx,
+      chartArea: { top, bottom, left, right, width, height },
+    } = chart;
+    ctx.save();
 
+    ctx.fillStyle = "black";
+    //  ctx.fillRect(left, top, width, height);
+    ctx.fillRect(left, top, width / 2, height);
+    ctx.fillStyle = "blue";
+    // change the starting position of the leftMid value
+    const leftMid = width / 2 + left;
+    ctx.fillRect(leftMid, top, width / 2, height);
+  },
+};
 // config block
 const config = {
   type: "bar",
@@ -31,8 +50,9 @@ const config = {
       },
     },
   },
-  plugins: [],
+  plugins: [chartAreaPlugin],
 };
 
 // render init block
 const myChart = new Chart(document.getElementById("myChart"), config);
+console.table(myChart.chartArea);
