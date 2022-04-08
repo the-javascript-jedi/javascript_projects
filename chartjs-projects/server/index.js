@@ -1,5 +1,6 @@
 const express = require("express");
 const chartsData = require("./chartsData").chartsData;
+const chartjsFetchJson = require("./chartjsFetchJson").chartjsFetchJson;
 const app = express();
 // SET Headers to overcome CROSS Origin requests
 app.use((req, res, next) => {
@@ -20,7 +21,12 @@ app.get("/chartsData", (req, res) => {
   // console.log("chartsData", chartsData);
   res.json(chartsData);
 });
-
+// http://localhost:5000/chartjsFetchJson
+app.get("/chartjsFetchJson", (req, res) => {
+  // res.send("Hello Nithin");
+  // console.log("chartsData", chartsData);
+  res.json(chartjsFetchJson);
+});
 app.listen(5000, () => {
   console.log("running on port 5000");
 });
