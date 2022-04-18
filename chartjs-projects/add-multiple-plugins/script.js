@@ -20,8 +20,20 @@ const data = {
     },
   ],
 };
-//plugin -
-
+//plugin - linePlugin
+const linePlugin = {
+  id: "linePlugin",
+  afterDraw(chart) {
+    const { ctx } = chart;
+    ctx.beginPath();
+    ctx.lineWidth = "3";
+    ctx.strokeStyle = "rgba(255,26,104,1)";
+    ctx.moveTo(100, 100);
+    ctx.lineTo(500, 100);
+    ctx.stroke();
+    ctx.closePath();
+  },
+};
 // config block
 const config = {
   type: "bar",
@@ -33,7 +45,7 @@ const config = {
       },
     },
   },
-  plugins: [],
+  plugins: [ChartDataLabels, linePlugin],
 };
 
 // render init block
