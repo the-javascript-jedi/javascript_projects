@@ -4,7 +4,7 @@ const data = {
   datasets: [
     {
       label: "Weekly Sales",
-      data: [18, 12, 6, 9, 12, 3, 9, 0, 0],
+      data: [18, 12, 6, 9, 12, 3, 9],
       backgroundColor: [
         "rgba(255, 26, 104, 0.2)",
         "rgba(54, 162, 235, 0.2)",
