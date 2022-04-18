@@ -10,6 +10,11 @@
     <div class="chartCard">
         <div class="chartBox">
             <canvas id="myChart"></canvas>
+            <!-- the max value in slider 1 is the min value of slider 2 -->
+            <!-- slider 1 -->
+            <input oninput="updateMin(this)" type="range" id="start" min="1" max="21" value="1">
+            <!-- slider 2 -->
+            <input oninput="updateMax(this)" type="range" id="end" min="" max="21" value="1">
         </div>
     </div>
     <!-- chart js -->
