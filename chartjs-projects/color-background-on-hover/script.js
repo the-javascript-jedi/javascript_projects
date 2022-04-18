@@ -14,8 +14,7 @@ const data = {
         "rgba(255, 159, 64, 0.2)",
         "rgba(0, 0, 0, 0.2)",
       ],
-      borderWidth: 1,
-      // borderColor: ["rgba(255,26,104,1)"],
+      borderColor: ["rgba(255,26,104,1)"],
       borderWidth: 2,
     },
   ],
@@ -24,7 +23,7 @@ const data = {
 
 // config block
 const config = {
-  type: "bar",
+  type: "line",
   data: data,
   options: {
     scales: {
