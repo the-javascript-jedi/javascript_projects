@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Background-Color-Dynamic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chartCard">
+        <div class="chartBox">
+            <canvas id="myChart"></canvas>
+        </div>
+        Scale Range:
+        Scale Min: <input id="scaleMin" type="number" name="min" value="0">
+        Scale Max: <input id="scaleMax" type="number" name="max" value="10">
+        <hr>
+        BG Range:
+        Bg Min: <input id="bgMin" type="number" name="min" value="0">
+        Bg Max: <input id="bgMax" type="number" name="max" value="10">
+    </div>
+    <!-- chart js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+   <script src="./script.js"></script>
+</body>
+</html>
