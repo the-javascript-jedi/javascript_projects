@@ -47,7 +47,7 @@ const data = {
       borderWidth: 2,
       tension: 0.5,
       pointRadius: 0,
-      pointHitRadius: 10,
+      pointHitRadius: 0,
       pointHoverRadius: 10,
       borderWidth: 2,
     },
@@ -200,29 +200,26 @@ function crosshairLine(chart, mousemove) {
   // Horizontal crosshair line starts
   ctx.beginPath();
   // ensure the coordinates are inside the chart grid
-  if (coorY >= top && coorY <= bottom) {
+  if (coorX >= left && coorX <= right && coorY >= top && coorY <= bottom) {
     ctx.moveTo(left, coorY);
     ctx.lineTo(right, coorY);
     ctx.stroke();
-  }
-  // Horizontal crosshair line ends
-  ctx.closePath();
-  //  Vertical crosshair line starts
-  ctx.beginPath();
-  // ensure the coordinates are inside the chart grid
-  if (coorX >= left && coorX <= right) {
+
+    // Horizontal crosshair line ends
+    ctx.closePath();
+    //  Vertical crosshair line starts
+    ctx.beginPath();
     ctx.moveTo(coorX, top);
     ctx.lineTo(coorX, bottom);
     ctx.stroke();
+    ctx.closePath();
+    //  Vertical crosshair line ends
+    // call cross hair label
+    crosshairLabel(chart, mousemove);
   }
-  ctx.closePath();
-  //  Vertical crosshair line ends
-  // call cross hair label
-  crosshairLabel(chart, mousemove);
 }
 // cross hair labels
 function crosshairLabel(chart, mousemove) {
-  console.log(mousemove);
   const {
     ctx,
     data,
@@ -231,15 +228,28 @@ function crosshairLabel(chart, mousemove) {
   } = chart;
   const coorX = mousemove.offsetX;
   const coorY = mousemove.offsetY;
+  // find label width
+  const textWidth =
+    ctx.measureText(data.labels[x.getValueForPixel(coorX)]).width + 10;
+  // label attributes
+  ctx.font = "12px sans-seriff";
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
   // yLabel
   ctx.beginPath();
   ctx.fillStyle = "rgba(132,132,132,1)";
   ctx.fillRect(0, coorY - 10, left, 20);
   ctx.closePath();
 
-  ctx.font = "12px sans-seriff";
   ctx.fillStyle = "white";
-  ctx.textBaseline = "middle";
-  ctx.textAlign = "center";
   ctx.fillText(y.getValueForPixel(coorY).toFixed(2), left / 2, coorY);
+
+  // xLabel
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(132,132,132,1)";
+  ctx.fillRect(coorX - textWidth / 2, bottom, textWidth, 20);
+  ctx.closePath();
+
+  ctx.fillStyle = "white";
+  ctx.fillText(data.labels[x.getValueForPixel(coorX)], coorX, bottom + 10);
 }
