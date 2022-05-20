@@ -1,6 +1,13 @@
 // setup block
 const data = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  labels: [
+    "2022-05-01",
+    "2022-05-02",
+    "2022-05-03",
+    "2022-05-04",
+    "2022-05-05",
+    "2022-05-06",
+  ],
   datasets: [
     {
       label: "Weekly Sales",
@@ -110,6 +117,12 @@ const config = {
       },
     },
     scales: {
+      x: {
+        type: "time", //timeseries
+        time: {
+          unit: "day",
+        },
+      },
       y: {
         beginAtZero: true,
       },
@@ -232,7 +245,9 @@ function crosshairLabel(chart, mousemove) {
   const coorY = mousemove.offsetY;
   // find label width
   const textWidth =
-    ctx.measureText(data.labels[x.getValueForPixel(coorX)]).width + 10;
+    // new Date(x.getValueForPixel(coorX)
+    ctx.measureText(new Date(x.getValueForPixel(coorX)).toLocaleString())
+      .width + 10;
   // label attributes
   ctx.font = "12px sans-seriff";
   ctx.textBaseline = "middle";
@@ -253,7 +268,11 @@ function crosshairLabel(chart, mousemove) {
   ctx.closePath();
 
   ctx.fillStyle = "white";
-  ctx.fillText(data.labels[x.getValueForPixel(coorX)], coorX, bottom + 10);
+  ctx.fillText(
+    new Date(x.getValueForPixel(coorX)).toLocaleString(),
+    coorX,
+    bottom + 10
+  );
 }
 // crosshairPoint interpolation
 function crosshairPoint(chart, mousemove) {
