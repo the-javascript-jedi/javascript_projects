@@ -129,6 +129,8 @@ const config = {
         time: {
           unit: "day",
         },
+        min: dates[0],
+        max: dates[dates.length - 1],
       },
       y: {
         beginAtZero: true,
@@ -349,3 +351,31 @@ function crosshairPoint(chart, mousemove) {
   ctx.fill();
   ctx.stroke();
 }
+
+// zoom function on scroll
+function zoom(chart, mousewheel) {
+  const min = chart.config.options.scales.x.min;
+  const max = chart.config.options.scales.x.max;
+  // scroll down negative value // scroll up for positive value
+  // console.log("mousewheel.wheelDeltaY", mousewheel.wheelDeltaY);
+  // zoom functionality
+  if (mousewheel.wheelDeltaY >= 0) {
+    chart.config.options.scales.x.min = dates[dates.indexOf(min) + 1];
+    chart.config.options.scales.x.max = dates[dates.indexOf(max) - 1];
+  }
+  if (mousewheel.wheelDeltaY <= 0) {
+    chart.config.options.scales.x.min = dates[dates.indexOf(min) - 1];
+    chart.config.options.scales.x.max = dates[dates.indexOf(max) + 1];
+  }
+  // check if min value and max value are valid
+  if (dates[dates.indexOf(min)] <= 0) {
+    chart.config.options.scales.x.min = dates[0];
+  }
+  if (dates[dates.indexOf(max)] >= dates[dates.length - 1]) {
+    chart.config.options.scales.x.max = dates[dates.length - 1];
+  }
+}
+// trigger scroll event
+myChart.canvas.addEventListener("mousewheel", (e) => {
+  zoom(myChart, e);
+});
