@@ -1,7 +1,7 @@
 // randomize the stock market data
 const dates = [];
 const numbers = [];
-for (let i = 0; i < 25; i++) {
+for (let i = 0; i < 100; i++) {
   const date = new Date();
   date.setDate(date.getDate() + i);
   dates.push(date.setHours(0, 0, 0, 0));
@@ -11,28 +11,10 @@ for (let i = 0; i < 25; i++) {
 // setup block
 const data = {
   labels: dates,
-  // labels: [
-  //   "2022-05-01",
-  //   "2022-05-02",
-  //   "2022-05-03",
-  //   "2022-05-04",
-  //   "2022-05-05",
-  //   "2022-05-06",
-  // ],
   datasets: [
     {
       label: "Weekly Sales",
-      // data: [9.33, 12, 6, 9, 12, 3, 9],
       data: numbers,
-      backgroundColor: [
-        "rgba(255, 26, 104, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-        "rgba(0, 0, 0, 0.2)",
-      ],
       fill: {
         target: {
           value: numbers[0],
@@ -159,6 +141,10 @@ function getGradient(ctx, chartArea, data, scales) {
   const gradientBorder = ctx.createLinearGradient(0, 0, 0, height);
   // find starting point value to calculate color gradient
   const shift = y.getPixelForValue(data.datasets[0].data[0]) / bottom;
+  // check shift value because to apply gradien it can only be between 0 and 1
+  if (shift > 1) {
+    shift = 1;
+  }
   // add colors to dip and rise
   gradientBorder.addColorStop(0, "rgba(75,192,192,1)");
   gradientBorder.addColorStop(shift, "rgba(75,192,192,1)");
