@@ -296,39 +296,33 @@ function crosshairPoint(chart, mousemove) {
   // 1PI = half circle so we are calculating a single degree
   const angle = Math.PI / 180;
   // specify the grid line items segments
-  const segments = x._gridLineItems.length - 1;
+  // const segments = x._gridLineItems.length - 1;
+  // length of data points instead of grid lines
+  const segments = width / (dates.length - 1);
   // console.log("x._gridLineItems", x._gridLineItems);
   // using this yOpening value we can declare the ball color whether if it should be green or red
   const yOpening = y.getPixelForValue(data.datasets[0].data[0]);
-  // this for loop ensures the hower position is between the tick points in the grid line items
-  for (let i = 0; i < segments; i++) {
-    if (
-      coorX >= x._gridLineItems[i].tx1 &&
-      coorX <= x._gridLineItems[i + 1].tx1
-    ) {
-      // console.log(xValue,i);
-      let yStart = y.getPixelForValue(data.datasets[0].data[i]);
-      let yEnd = y.getPixelForValue(data.datasets[0].data[i + 1]);
-
-      // yInterpolation- specifies the interpolation pixel
-      let yInterpolation =
-        yStart +
-        ((yEnd - yStart) / (width / segments)) *
-          (coorX - x._gridLineItems[i].tx1);
-      // console.log("yInterpolation", yInterpolation);
-      if (yOpening >= yInterpolation) {
-        ctx.fillStyle = "rgba(75,192,192,1)";
-      } else {
-        ctx.fillStyle = "rgba(255,26,104,1)";
-      }
-      // draw the circle
-      // angleStart,angleEnd, clockwise-false
-      // ctx.arc(x,y,radius,angleS,angleE,false);
-      // ctx.arc(coorX, yStart, 5, angle * 0, angle * 360, false);
-      ctx.arc(coorX, yInterpolation, 5, angle * 0, angle * 360, false);
-      // create the circle
-      ctx.fill();
-      ctx.stroke();
-    }
+  // index - the point value which we are currently howering on in x coordinate
+  // how many pixel we move in comparison with x coordinate - numbers data array index index=(1-100)
+  let index = Math.floor((coorX - left) / segments);
+  // console.log("index", index);
+  let yStart = y.getPixelForValue(data.datasets[0].data[index]);
+  let yEnd = y.getPixelForValue(data.datasets[0].data[index + 1]);
+  let yInterpolation =
+    yStart +
+    ((yEnd - yStart) / segments) *
+      (coorX - x.getPixelForValue(data.labels[index]));
+  if (yOpening >= yInterpolation) {
+    ctx.fillStyle = "rgba(75,192,192,1)";
+  } else {
+    ctx.fillStyle = "rgba(255,26,104,1)";
   }
+  // draw the circle
+  // angleStart,angleEnd, clockwise-false
+  // ctx.arc(x,y,radius,angleS,angleE,false);
+  // ctx.arc(coorX, yStart, 5, angle * 0, angle * 360, false);
+  ctx.arc(coorX, yInterpolation, 5, angle * 0, angle * 360, false);
+  // create the circle
+  ctx.fill();
+  ctx.stroke();
 }
