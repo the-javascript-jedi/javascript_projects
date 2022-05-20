@@ -45,7 +45,7 @@ const data = {
         return getGradient(ctx, chartArea, data, scales);
       },
       borderWidth: 2,
-      tension: 0.5,
+      tension: 0.0,
       pointRadius: 0,
       pointHitRadius: 0,
       pointHoverRadius: 10,
@@ -216,6 +216,8 @@ function crosshairLine(chart, mousemove) {
     //  Vertical crosshair line ends
     // call cross hair label
     crosshairLabel(chart, mousemove);
+    // call the cross hair interpolation
+    crosshairPoint(chart, mousemove);
   }
 }
 // cross hair labels
@@ -252,4 +254,55 @@ function crosshairLabel(chart, mousemove) {
 
   ctx.fillStyle = "white";
   ctx.fillText(data.labels[x.getValueForPixel(coorX)], coorX, bottom + 10);
+}
+// crosshairPoint interpolation
+function crosshairPoint(chart, mousemove) {
+  const {
+    ctx,
+    data,
+    chartArea: { left, right, top, bottom, width },
+    scales: { x, y },
+  } = chart;
+  const coorX = mousemove.offsetX;
+  const coorY = mousemove.offsetY;
+
+  // create circle interpolation shape
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(255,26,104,1)";
+  ctx.strokeStyle = "#666";
+  ctx.lineWidth = 3;
+  ctx.setLineDash([]);
+  // 1PI = half circle so we are calculating a single degree
+  const angle = Math.PI / 180;
+  // specify the grid line items segments
+  const segments = x._gridLineItems.length - 1;
+  // console.log("x._gridLineItems", x._gridLineItems);
+  // this for loop ensures the hower position is between the tick points in the grid line items
+  for (let i = 0; i < segments; i++) {
+    if (
+      coorX >= x._gridLineItems[i].tx1 &&
+      coorX <= x._gridLineItems[i + 1].tx1
+    ) {
+      // console.log(xValue,i);
+      let yStart = y.getPixelForValue(data.datasets[0].data[i]);
+      let yEnd = y.getPixelForValue(data.datasets[0].data[i + 1]);
+      // draw the circle
+      // angleStart,angleEnd, clockwise-false
+      // ctx.arc(x,y,radius,angleS,angleE,false);
+      // ctx.arc(coorX, yStart, 5, angle * 0, angle * 360, false);
+      ctx.arc(
+        coorX,
+        yStart +
+          ((yEnd - yStart) / (width / segments)) *
+            (coorX - x._gridLineItems[i].tx1),
+        5,
+        angle * 0,
+        angle * 360,
+        false
+      );
+      // create the circle
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
 }
