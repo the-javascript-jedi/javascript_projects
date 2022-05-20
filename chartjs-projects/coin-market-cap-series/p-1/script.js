@@ -217,4 +217,29 @@ function crosshairLine(chart, mousemove) {
   }
   ctx.closePath();
   //  Vertical crosshair line ends
+  // call cross hair label
+  crosshairLabel(chart, mousemove);
+}
+// cross hair labels
+function crosshairLabel(chart, mousemove) {
+  console.log(mousemove);
+  const {
+    ctx,
+    data,
+    chartArea: { left, right, top, bottom },
+    scales: { x, y },
+  } = chart;
+  const coorX = mousemove.offsetX;
+  const coorY = mousemove.offsetY;
+  // yLabel
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(132,132,132,1)";
+  ctx.fillRect(0, coorY - 10, left, 20);
+  ctx.closePath();
+
+  ctx.font = "12px sans-seriff";
+  ctx.fillStyle = "white";
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+  ctx.fillText(y.getValueForPixel(coorY).toFixed(2), left / 2, coorY);
 }
