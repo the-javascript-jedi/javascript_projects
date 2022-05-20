@@ -182,14 +182,39 @@ function crosshairLine(chart, mousemove) {
     ctx,
     chartArea: { left, right, top, bottom },
   } = chart;
-  if (
-    mousemove.offsetX >= left &&
-    mousemove.offsetX <= right &&
-    mousemove.offsetY >= top &&
-    mousemove.offsetY <= bottom
-  ) {
+  const coorX = mousemove.offsetX;
+  const coorY = mousemove.offsetY;
+  // update chart but don't do any effect
+  chart.update("none");
+  // restore
+  ctx.restore();
+  if (coorX >= left && coorX <= right && coorY >= top && coorY <= bottom) {
     canvas.style.cursor = "crosshair";
   } else {
     canvas.style.cursor = "default";
   }
+  // line for crosshairs
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#666";
+  ctx.setLineDash([3, 3]);
+  // Horizontal crosshair line starts
+  ctx.beginPath();
+  // ensure the coordinates are inside the chart grid
+  if (coorY >= top && coorY <= bottom) {
+    ctx.moveTo(left, coorY);
+    ctx.lineTo(right, coorY);
+    ctx.stroke();
+  }
+  // Horizontal crosshair line ends
+  ctx.closePath();
+  //  Vertical crosshair line starts
+  ctx.beginPath();
+  // ensure the coordinates are inside the chart grid
+  if (coorX >= left && coorX <= right) {
+    ctx.moveTo(coorX, top);
+    ctx.lineTo(coorX, bottom);
+    ctx.stroke();
+  }
+  ctx.closePath();
+  //  Vertical crosshair line ends
 }
