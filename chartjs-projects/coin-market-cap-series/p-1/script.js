@@ -268,8 +268,8 @@ function crosshairPoint(chart, mousemove) {
 
   // create circle interpolation shape
   ctx.beginPath();
-  ctx.fillStyle = "rgba(255,26,104,1)";
-  ctx.strokeStyle = "#666";
+  // ctx.fillStyle = "rgba(255,26,104,1)";
+  ctx.strokeStyle = "#FFF";
   ctx.lineWidth = 3;
   ctx.setLineDash([]);
   // 1PI = half circle so we are calculating a single degree
@@ -277,6 +277,8 @@ function crosshairPoint(chart, mousemove) {
   // specify the grid line items segments
   const segments = x._gridLineItems.length - 1;
   // console.log("x._gridLineItems", x._gridLineItems);
+  // using this yOpening value we can declare the ball color whether if it should be green or red
+  const yOpening = y.getPixelForValue(data.datasets[0].data[0]);
   // this for loop ensures the hower position is between the tick points in the grid line items
   for (let i = 0; i < segments; i++) {
     if (
@@ -286,20 +288,23 @@ function crosshairPoint(chart, mousemove) {
       // console.log(xValue,i);
       let yStart = y.getPixelForValue(data.datasets[0].data[i]);
       let yEnd = y.getPixelForValue(data.datasets[0].data[i + 1]);
+
+      // yInterpolation- specifies the interpolation pixel
+      let yInterpolation =
+        yStart +
+        ((yEnd - yStart) / (width / segments)) *
+          (coorX - x._gridLineItems[i].tx1);
+      // console.log("yInterpolation", yInterpolation);
+      if (yOpening >= yInterpolation) {
+        ctx.fillStyle = "rgba(75,192,192,1)";
+      } else {
+        ctx.fillStyle = "rgba(255,26,104,1)";
+      }
       // draw the circle
       // angleStart,angleEnd, clockwise-false
       // ctx.arc(x,y,radius,angleS,angleE,false);
       // ctx.arc(coorX, yStart, 5, angle * 0, angle * 360, false);
-      ctx.arc(
-        coorX,
-        yStart +
-          ((yEnd - yStart) / (width / segments)) *
-            (coorX - x._gridLineItems[i].tx1),
-        5,
-        angle * 0,
-        angle * 360,
-        false
-      );
+      ctx.arc(coorX, yInterpolation, 5, angle * 0, angle * 360, false);
       // create the circle
       ctx.fill();
       ctx.stroke();
