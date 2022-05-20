@@ -170,3 +170,26 @@ function aboveGradient(ctx, chartArea, data, scales) {
 
 // render init block
 const myChart = new Chart(document.getElementById("myChart"), config);
+// mousemove event over chart
+myChart.canvas.addEventListener("mousemove", (e) => {
+  crosshairLine(myChart, e);
+});
+// show crosshair when hovering over the chart area grid
+function crosshairLine(chart, mousemove) {
+  // console.log("mousemove mouse position", mousemove.offsetX, mousemove.offsetY);
+  const {
+    canvas,
+    ctx,
+    chartArea: { left, right, top, bottom },
+  } = chart;
+  if (
+    mousemove.offsetX >= left &&
+    mousemove.offsetX <= right &&
+    mousemove.offsetY >= top &&
+    mousemove.offsetY <= bottom
+  ) {
+    canvas.style.cursor = "crosshair";
+  } else {
+    canvas.style.cursor = "default";
+  }
+}
