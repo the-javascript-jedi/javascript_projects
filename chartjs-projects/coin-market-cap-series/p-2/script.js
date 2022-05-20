@@ -1,11 +1,13 @@
 // randomize the stock market data
 const dates = [];
 const numbers = [];
+const volume = [];
 for (let i = 0; i < 100; i++) {
   const date = new Date();
   date.setDate(date.getDate() + i);
   dates.push(date.setHours(0, 0, 0, 0));
   numbers.push(Math.random() * 10);
+  volume.push(Math.random() * 100);
 }
 
 // setup block
@@ -45,12 +47,19 @@ const data = {
         }
         return getGradient(ctx, chartArea, data, scales);
       },
-      borderWidth: 2,
       tension: 0.0,
       pointRadius: 0,
       pointHitRadius: 0,
-      pointHoverRadius: 10,
+      pointHoverRadius: 0,
       borderWidth: 2,
+    },
+    {
+      label: "Stock Volume",
+      type: "bar",
+      data: volume,
+      pointHitRadius: 0,
+      pointHoverRadius: 0,
+      yAxisID: "volume",
     },
   ],
 };
@@ -123,6 +132,20 @@ const config = {
       },
       y: {
         beginAtZero: true,
+      },
+      volume: {
+        type: "linear",
+        position: "right",
+        min: 0,
+        max: 1000,
+        // hide the volume grid lines
+        grid: {
+          display: false,
+        },
+        // hide the ticks
+        ticks: {
+          display: false,
+        },
       },
     },
     plugins: {
