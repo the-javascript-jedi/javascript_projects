@@ -27,9 +27,27 @@ const config = {
   type: "line",
   data: data,
   options: {
+    // Anotation plugins
+    plugins: {
+      // for anotations autocolor is off
+      autocolors: false,
+      annotation: {
+        annotations: {
+          box1: {
+            type: "box",
+            xMin: 0.5,
+            xMax: 3.5,
+            yMin: 0,
+            yMax: 18,
+            backgroundColor: "rgba(0,0,0,0.2)",
+          },
+        },
+      },
+    },
     scales: {
       x: {
-        type: "time",
+        // coloring the background color for type time will not work
+        // type: "time",
         time: {
           unit: "day",
           parser: "yyyyMMdd",
@@ -40,7 +58,7 @@ const config = {
       },
     },
   },
-  plugins: [],
+  plugins: ["chartjs-plugin-annotation"],
 };
 
 // render init block
