@@ -545,52 +545,61 @@ function zoomBox(min, max) {
     chartArea: { top, bottom, left, right, width, height },
     scales: { x, y },
   } = myChart2;
-  ctx.save();
-  ctx.beginPath();
-  ctx.fillStyle = "rgba(54,162,235,0.5)";
-  // ctx.fillRect(x, y, w, h);
-  ctx.fillRect(
-    x.getPixelForValue(min),
-    top,
-    x.getPixelForValue(max) - x.getPixelForValue(min),
-    height
-  );
-  ctx.closePath();
-  // calculate angle
-  const angle = Math.PI / 180;
-  // create swiperButton
-  swiperButton(x.getPixelForValue(min));
-  swiperButton(x.getPixelForValue(max));
-  // swiper button code
-  function swiperButton(position) {
-    ctx.beginPath();
-    ctx.strokeStyle = "rgba(54,162,235,1)";
-    ctx.lineWidth = 2;
-    ctx.fillStyle = "#FFF";
-    // ctx.arc(x,y,radius,startAngle,endAngle,clockwise)
-    ctx.arc(position, height / 2, 10, angle * 0, angle * 360, false);
-    ctx.fill();
-    ctx.stroke();
-    ctx.closePath();
-    ctx.restore();
 
-    ctx.strokeStyle = "red";
-    ctx.lineWidth = 1.5;
-    //line inside the circle button -//currently not displaying
-    ctx.beginPath();
-    // ctx.moveTo(x, y);
-    ctx.moveTo(position - 3, height / 2 - 5);
-    ctx.lineTo(position - 3, height / 2 - 5);
-    ctx.stroke();
-    ctx.restore();
-
-    ctx.beginPath();
-    // ctx.moveTo(x, y);
-    ctx.moveTo(position + 3, height / 2 - 5);
-    ctx.lineTo(position + 3, height / 2 - 5);
-    ctx.stroke();
-    ctx.restore();
+  if (min === undefined) {
+    min = dates[0];
   }
+  zoomBoxItem(min, max);
+  // zoomBoxItemfn - function
+  function zoomBoxItem(min, max) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(54,162,235,0.5)";
+    // ctx.fillRect(x, y, w, h);
+    ctx.fillRect(
+      x.getPixelForValue(min),
+      top,
+      x.getPixelForValue(max) - x.getPixelForValue(min),
+      height
+    );
+    ctx.closePath();
+    // calculate angle
+    const angle = Math.PI / 180;
+    // create swiperButton
+    swiperButton(x.getPixelForValue(min));
+    swiperButton(x.getPixelForValue(max));
+    // swiper button code
+    function swiperButton(position) {
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(54,162,235,1)";
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "#FFF";
+      // ctx.arc(x,y,radius,startAngle,endAngle,clockwise)
+      ctx.arc(position, height / 2, 10, angle * 0, angle * 360, false);
+      ctx.fill();
+      ctx.stroke();
+      ctx.closePath();
+      ctx.restore();
+
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 1.5;
+      //line inside the circle button -//currently not displaying
+      ctx.beginPath();
+      // ctx.moveTo(x, y);
+      ctx.moveTo(position - 3, height / 2 - 5);
+      ctx.lineTo(position - 3, height / 2 - 5);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.beginPath();
+      // ctx.moveTo(x, y);
+      ctx.moveTo(position + 3, height / 2 - 5);
+      ctx.lineTo(position + 3, height / 2 - 5);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
   // change the mouse cursor of the hoverbox
   canvas.addEventListener("mousemove", (e) => {
     mouseCursor(e);
@@ -645,9 +654,13 @@ function zoomBox(min, max) {
         // scrollPoint - where we are scrolling for zoom
         const scrollPoint = dates.indexOf(dayTimestamp);
         console.log("scrollPoint--second chart", scrollPoint);
+
         // change the main chart scale based on the bottom chart
         myChart.config.options.scales.x.min = dates[scrollPoint];
         myChart.update("none");
+        myChart2.update("none");
+        // adjust the scroll box on right side
+        zoomBoxItem(dates[scrollPoint], max);
       }
     }
     // right button drag
@@ -672,6 +685,9 @@ function zoomBox(min, max) {
         // change the main chart scale based on the bottom chart
         myChart.config.options.scales.x.max = dates[scrollPoint];
         myChart.update("none");
+        myChart2.update("none");
+        // adjust the scroll box on right side
+        zoomBoxItem(myChart.config.options.scales.x.min, dates[scrollPoint]);
       }
     }
   }
