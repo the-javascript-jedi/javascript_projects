@@ -452,7 +452,7 @@ function zoom(chart, mousewheel) {
   if (dates[dates.indexOf(max)] >= dates[dates.length - 1]) {
     chart.config.options.scales.x.max = dates[dates.length - 1];
   }
-  // pass the zooming min max values to second chart
+  // pass the zooming min max values to second
   zoomBox(min, max);
   // will stop animation on change
   chart.update("none");
@@ -529,4 +529,41 @@ const config2 = {
 const myChart2 = new Chart(document.getElementById("myChart2"), config2);
 
 // zoombox - zoom for second chart
-function zoomBox(min, max) {}
+function zoomBox(min, max) {
+  myChart2.update("none");
+  const {
+    ctx,
+    data,
+    chartArea: { top, bottom, left, right, width, height },
+    scales: { x, y },
+  } = myChart2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.fillStyle = "rgba(54,162,235,0.5)";
+  // ctx.fillRect(x, y, w, h);
+  ctx.fillRect(
+    x.getPixelForValue(min),
+    top,
+    x.getPixelForValue(max) - x.getPixelForValue(min),
+    height
+  );
+  ctx.closePath();
+  // calculate angle
+  const angle = Math.PI / 180;
+  // create swiperButton
+  swiperButton(x.getPixelForValue(min));
+  swiperButton(x.getPixelForValue(max));
+  // swiper button code
+  function swiperButton(position) {
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(54,162,235,1)";
+    ctx.lineWidth = 2;
+    ctx.fillStyle = "#FFF";
+    // ctx.arc(x,y,radius,startAngle,endAngle,clockwise)
+    ctx.arc(position, height / 2, 10, angle * 0, angle * 360, false);
+    ctx.fill();
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+  }
+}
