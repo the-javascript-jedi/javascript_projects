@@ -617,4 +617,62 @@ function zoomBox(min, max) {
       canvas.style.cursor = "default";
     }
   }
+  // hover box dragging
+  canvas.addEventListener("mousedown", (e) => {
+    dragStart(e);
+  });
+  // when we stop dragging - simple hover means the position is not tracked
+  canvas.addEventListener("mouseup", (e) => {
+    canvas.onmousemove = null;
+  });
+  function dragStart(drag) {
+    // left button drag
+    if (
+      drag.offsetX >= x.getPixelForValue(min) - 10 &&
+      drag.offsetX <= x.getPixelForValue(min) + 10
+    ) {
+      canvas.onmousemove = (e) => {
+        dragMove(myChart, e);
+      };
+
+      // dragMove
+      function dragMove(myChart, dragDelta) {
+        //  const min = chart.config.options.scales.x.min;
+        //  const max = chart.config.options.scales.x.max;
+        // get the scrolled timestamp
+        const timestamp = x.getValueForPixel(dragDelta.offsetX);
+        const dayTimestamp = new Date(timestamp).setHours(0, 0, 0, 0);
+        // scrollPoint - where we are scrolling for zoom
+        const scrollPoint = dates.indexOf(dayTimestamp);
+        console.log("scrollPoint--second chart", scrollPoint);
+        // change the main chart scale based on the bottom chart
+        myChart.config.options.scales.x.min = dates[scrollPoint];
+        myChart.update("none");
+      }
+    }
+    // right button drag
+    if (
+      drag.offsetX >= x.getPixelForValue(max) - 10 &&
+      drag.offsetX <= x.getPixelForValue(max) + 10
+    ) {
+      canvas.onmousemove = (e) => {
+        dragMove(myChart, e);
+      };
+
+      // dragMove
+      function dragMove(myChart, dragDelta) {
+        //  const min = chart.config.options.scales.x.min;
+        //  const max = chart.config.options.scales.x.max;
+        // get the scrolled timestamp
+        const timestamp = x.getValueForPixel(dragDelta.offsetX);
+        const dayTimestamp = new Date(timestamp).setHours(0, 0, 0, 0);
+        // scrollPoint - where we are scrolling for zoom
+        const scrollPoint = dates.indexOf(dayTimestamp);
+        console.log("scrollPoint--second chart", scrollPoint);
+        // change the main chart scale based on the bottom chart
+        myChart.config.options.scales.x.max = dates[scrollPoint];
+        myChart.update("none");
+      }
+    }
+  }
 }
