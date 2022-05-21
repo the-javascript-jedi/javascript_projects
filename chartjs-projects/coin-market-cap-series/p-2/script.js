@@ -165,10 +165,13 @@ function getGradient(ctx, chartArea, data, scales) {
   // ctx.createLinearGradient(x,y,w,h); - Vertical effect gradient top to bottom
   const gradientBorder = ctx.createLinearGradient(0, 0, 0, height);
   // find starting point value to calculate color gradient
-  const shift = y.getPixelForValue(data.datasets[0].data[0]) / bottom;
+  let shift = y.getPixelForValue(data.datasets[0].data[0]) / bottom;
   // check shift value because to apply gradien it can only be between 0 and 1
   if (shift > 1) {
     shift = 1;
+  }
+  if (shift < 1) {
+    shift = 0;
   }
   // add colors to dip and rise
   gradientBorder.addColorStop(0, "rgba(75,192,192,1)");
@@ -323,13 +326,17 @@ function crosshairPoint(chart, mousemove) {
   // specify the grid line items segments
   // const segments = x._gridLineItems.length - 1;
   // length of data points instead of grid lines
-  const segments = width / (dates.length - 1);
+  // const segments = width / (dates.length - 1);
+  // get segment value
+  const segments = width / (dates.indexOf(x.max) - dates.indexOf(x.min));
+
   // console.log("x._gridLineItems", x._gridLineItems);
   // using this yOpening value we can declare the ball color whether if it should be green or red
   const yOpening = y.getPixelForValue(data.datasets[0].data[0]);
   // index - the point value which we are currently howering on in x coordinate
   // how many pixel we move in comparison with x coordinate - numbers data array index index=(1-100)
-  let index = Math.floor((coorX - left) / segments);
+  // based on zoom this index value is adjusted to show which value is currently in view
+  let index = Math.floor((coorX - left) / segments) + dates.indexOf(x.min);
   // console.log("index", index);
   let yStart = y.getPixelForValue(data.datasets[0].data[index]);
   let yEnd = y.getPixelForValue(data.datasets[0].data[index + 1]);
@@ -356,16 +363,56 @@ function crosshairPoint(chart, mousemove) {
 function zoom(chart, mousewheel) {
   const min = chart.config.options.scales.x.min;
   const max = chart.config.options.scales.x.max;
+  // get the scrolled timestamp
+  const timestamp = chart.scales.x.getValueForPixel(mousewheel.offsetX);
+  const dayTimestamp = new Date(timestamp).setHours(0, 0, 0, 0);
+  // scrollPoint - where we are scrolling for zoom
+  const scrollPoint = dates.indexOf(dayTimestamp);
   // scroll down negative value // scroll up for positive value
   // console.log("mousewheel.wheelDeltaY", mousewheel.wheelDeltaY);
   // zoom functionality
+  // scroll up
   if (mousewheel.wheelDeltaY >= 0) {
     chart.config.options.scales.x.min = dates[dates.indexOf(min) + 1];
     chart.config.options.scales.x.max = dates[dates.indexOf(max) - 1];
+    //dont do zoom movements on the left most edge of chart
+    if (
+      dates.indexOf(min) >= scrollPoint - 4 &&
+      dates.indexOf(min) <= scrollPoint
+    ) {
+      chart.config.options.scales.x.min = min;
+    }
+    if (
+      dates.indexOf(max) <= scrollPoint + 4 &&
+      dates.indexOf(min) >= scrollPoint
+    ) {
+      chart.config.options.scales.x.max = max;
+    }
   }
-  if (mousewheel.wheelDeltaY <= 0) {
+  // scroll down
+  if (mousewheel.wheelDeltaY < 0) {
     chart.config.options.scales.x.min = dates[dates.indexOf(min) - 1];
     chart.config.options.scales.x.max = dates[dates.indexOf(max) + 1];
+    // zoom lock out issue fix - when we zoom to last value
+    // if range of values zoomed is greater than 14 day values
+    const weekms = 86400000 * 14;
+    const range = max - min;
+    if (range >= weekms) {
+      //dont do zoom movements on the right most edge of chart
+      if (
+        dates.indexOf(min) >= scrollPoint - 4 &&
+        dates.indexOf(min) <= scrollPoint
+      ) {
+        chart.config.options.scales.x.min = min;
+      }
+
+      if (
+        dates.indexOf(max) <= scrollPoint + 4 &&
+        dates.indexOf(min) >= scrollPoint
+      ) {
+        chart.config.options.scales.x.max = max;
+      }
+    }
   }
   // check if min value and max value are valid
   if (dates[dates.indexOf(min)] <= 0) {
@@ -374,8 +421,10 @@ function zoom(chart, mousewheel) {
   if (dates[dates.indexOf(max)] >= dates[dates.length - 1]) {
     chart.config.options.scales.x.max = dates[dates.length - 1];
   }
+  // will stop animation on change
+  chart.update("none");
 }
 // trigger scroll event
-myChart.canvas.addEventListener("mousewheel", (e) => {
+myChart.canvas.addEventListener("wheel", (e) => {
   zoom(myChart, e);
 });
