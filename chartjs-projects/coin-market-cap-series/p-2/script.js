@@ -459,3 +459,67 @@ function zoom(chart, mousewheel) {
 myChart.canvas.addEventListener("wheel", (e) => {
   zoom(myChart, e);
 });
+// Bottom Chart 2
+// setup block
+const data2 = {
+  labels: dates,
+  datasets: [
+    {
+      label: "Weekly Sales",
+      data: numbers,
+      backgroundColor: "rgba(54, 162, 235, 0.2)",
+      borderColor: "rgba(54, 162, 235, 0.2)",
+      fill: true,
+      pointRadius: 0,
+      pointHoverRadius: 0,
+    },
+  ],
+};
+//plugin -
+
+// config block
+const config2 = {
+  type: "line",
+  data: data2,
+  options: {
+    layout: {
+      padding: {
+        left: myChart.chartArea.left,
+        right: myChart.width - myChart.chartArea.right,
+      },
+    },
+    // adjust the aspect to make the sub chart smaller
+    aspectRatio: 20,
+    scales: {
+      x: {
+        type: "time", //timeseries
+        time: {
+          unit: "day",
+        },
+        min: dates[0],
+        max: dates[dates.length - 1],
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          display: false,
+        },
+        grid: {
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
+  },
+  plugins: [],
+};
+
+// render init block
+const myChart2 = new Chart(document.getElementById("myChart2"), config2);
