@@ -152,6 +152,7 @@ const config = {
     layout: {
       padding: {
         left: 10,
+        right: 5,
       },
     },
     scales: {
@@ -540,7 +541,7 @@ function zoomBox(min, max) {
   myChart2.update("none");
   const {
     ctx,
-    data,
+    canvas,
     chartArea: { top, bottom, left, right, width, height },
     scales: { x, y },
   } = myChart2;
@@ -567,10 +568,53 @@ function zoomBox(min, max) {
     ctx.lineWidth = 2;
     ctx.fillStyle = "#FFF";
     // ctx.arc(x,y,radius,startAngle,endAngle,clockwise)
-    ctx.arc(position, height / 2, 5, angle * 0, angle * 360, false);
+    ctx.arc(position, height / 2, 10, angle * 0, angle * 360, false);
     ctx.fill();
     ctx.stroke();
     ctx.closePath();
     ctx.restore();
+
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 1.5;
+    //line inside the circle button -//currently not displaying
+    ctx.beginPath();
+    // ctx.moveTo(x, y);
+    ctx.moveTo(position - 3, height / 2 - 5);
+    ctx.lineTo(position - 3, height / 2 - 5);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.beginPath();
+    // ctx.moveTo(x, y);
+    ctx.moveTo(position + 3, height / 2 - 5);
+    ctx.lineTo(position + 3, height / 2 - 5);
+    ctx.stroke();
+    ctx.restore();
+  }
+  // change the mouse cursor of the hoverbox
+  canvas.addEventListener("mousemove", (e) => {
+    mouseCursor(e);
+  });
+  // mouseCursor function
+  // the mouse will hover and show a drag cursor when we are on the howerbox buttons
+  function mouseCursor(mousemove) {
+    // console.log("mousemove.offsetX", mousemove.offsetX);
+    if (
+      (mousemove.offsetX >= x.getPixelForValue(min) - 10 &&
+        mousemove.offsetX <= x.getPixelForValue(min) + 10) ||
+      (mousemove.offsetX >= x.getPixelForValue(max) - 10 &&
+        mousemove.offsetX <= x.getPixelForValue(max) + 10)
+    ) {
+      // box sides
+      canvas.style.cursor = "ew-resize";
+    } else if (
+      mousemove.offsetX > x.getPixelForValue(min) + 10 &&
+      mousemove.offsetX < x.getPixelForValue(max) - 10
+    ) {
+      // box middle
+      canvas.style.cursor = "move";
+    } else {
+      canvas.style.cursor = "default";
+    }
   }
 }
