@@ -452,6 +452,8 @@ function zoom(chart, mousewheel) {
   if (dates[dates.indexOf(max)] >= dates[dates.length - 1]) {
     chart.config.options.scales.x.max = dates[dates.length - 1];
   }
+  // pass the zooming min max values to second chart
+  zoomBox(min, max);
   // will stop animation on change
   chart.update("none");
 }
@@ -484,7 +486,9 @@ const config2 = {
   options: {
     layout: {
       padding: {
-        left: myChart.chartArea.left,
+        // adjust the padding
+        left:
+          myChart.chartArea.left - myChart.config.options.layout.padding.left,
         right: myChart.width - myChart.chartArea.right,
       },
     },
@@ -523,3 +527,6 @@ const config2 = {
 
 // render init block
 const myChart2 = new Chart(document.getElementById("myChart2"), config2);
+
+// zoombox - zoom for second chart
+function zoomBox(min, max) {}
