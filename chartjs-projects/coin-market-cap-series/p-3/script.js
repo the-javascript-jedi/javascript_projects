@@ -190,7 +190,7 @@ const config = {
   },
   plugins: [dottedLine, imageLogo],
 };
-// getGradient function
+// getGradientfn function
 function getGradient(ctx, chartArea, data, scales) {
   const { left, right, top, bottom, width, height } = chartArea;
   const { x, y } = scales;
@@ -212,7 +212,7 @@ function getGradient(ctx, chartArea, data, scales) {
   gradientBorder.addColorStop(1, "rgba(255,26,104,1)");
   return gradientBorder;
 }
-// belowGradient function
+// belowGradientfn function
 function belowGradient(ctx, chartArea, data, scales) {
   const { left, right, top, bottom, width, height } = chartArea;
   const { x, y } = scales;
@@ -227,7 +227,7 @@ function belowGradient(ctx, chartArea, data, scales) {
   gradientBackground.addColorStop(1, "rgba(255, 26, 104, 0.5)");
   return gradientBackground;
 }
-// aboveGradient function
+// aboveGradientfn function
 function aboveGradient(ctx, chartArea, data, scales) {
   const { left, right, top, bottom, width, height } = chartArea;
   const { x, y } = scales;
@@ -249,7 +249,7 @@ const myChart = new Chart(document.getElementById("myChart"), config);
 myChart.canvas.addEventListener("mousemove", (e) => {
   crosshairLine(myChart, e);
 });
-// show crosshair when hovering over the chart area grid
+// crosshairLinefn - show crosshair when hovering over the chart area grid
 function crosshairLine(chart, mousemove) {
   // console.log("mousemove mouse position", mousemove.offsetX, mousemove.offsetY);
   const {
@@ -295,7 +295,7 @@ function crosshairLine(chart, mousemove) {
     crosshairPoint(chart, mousemove);
   }
 }
-// cross hair labels
+// crosshairLabelfn - cross hair labels
 function crosshairLabel(chart, mousemove) {
   const {
     ctx,
@@ -336,7 +336,7 @@ function crosshairLabel(chart, mousemove) {
     bottom + 10
   );
 }
-// crosshairPoint interpolation
+// crosshairPointfn interpolation
 function crosshairPoint(chart, mousemove) {
   const {
     ctx,
@@ -391,7 +391,7 @@ function crosshairPoint(chart, mousemove) {
   ctx.stroke();
 }
 
-// zoom function on scroll
+// zoomfn zoom function on scroll
 function zoom(chart, mousewheel) {
   const min = chart.config.options.scales.x.min;
   const max = chart.config.options.scales.x.max;
@@ -535,7 +535,7 @@ const myChart2 = new Chart(document.getElementById("myChart2"), config2);
 window.onload = function () {
   zoomBox(dates[0], dates[dates.length - 1]);
 };
-// zoombox - zoom for second chart
+// zoomboxfn - zoom for second chart
 function zoomBox(min, max) {
   console.log("onload zoomBox");
   myChart2.update("none");
@@ -568,7 +568,7 @@ function zoomBox(min, max) {
     // create swiperButton
     swiperButton(x.getPixelForValue(min));
     swiperButton(x.getPixelForValue(max));
-    // swiper button code
+    // swiperButtonfn - swiper button code
     function swiperButton(position) {
       ctx.beginPath();
       ctx.strokeStyle = "rgba(54,162,235,1)";
@@ -604,21 +604,27 @@ function zoomBox(min, max) {
   canvas.addEventListener("mousemove", (e) => {
     mouseCursor(e);
   });
-  // mouseCursor function
+  // mouseCursorfn function
   // the mouse will hover and show a drag cursor when we are on the howerbox buttons
   function mouseCursor(mousemove) {
     // console.log("mousemove.offsetX", mousemove.offsetX);
     if (
-      (mousemove.offsetX >= x.getPixelForValue(min) - 10 &&
-        mousemove.offsetX <= x.getPixelForValue(min) + 10) ||
-      (mousemove.offsetX >= x.getPixelForValue(max) - 10 &&
-        mousemove.offsetX <= x.getPixelForValue(max) + 10)
+      (mousemove.offsetX >=
+        x.getPixelForValue(myChart.config.options.scales.x.min) - 10 &&
+        mousemove.offsetX <=
+          x.getPixelForValue(myChart.config.options.scales.x.min) + 10) ||
+      (mousemove.offsetX >=
+        x.getPixelForValue(myChart.config.options.scales.x.max) - 10 &&
+        mousemove.offsetX <=
+          x.getPixelForValue(myChart.config.options.scales.x.max) + 10)
     ) {
       // box sides
       canvas.style.cursor = "ew-resize";
     } else if (
-      mousemove.offsetX > x.getPixelForValue(min) + 10 &&
-      mousemove.offsetX < x.getPixelForValue(max) - 10
+      mousemove.offsetX >
+        x.getPixelForValue(myChart.config.options.scales.x.min) + 10 &&
+      mousemove.offsetX <
+        x.getPixelForValue(myChart.config.options.scales.x.max) - 10
     ) {
       // box middle
       canvas.style.cursor = "move";
@@ -634,17 +640,20 @@ function zoomBox(min, max) {
   canvas.addEventListener("mouseup", (e) => {
     canvas.onmousemove = null;
   });
+  // dragStartfn
   function dragStart(drag) {
     // left button drag
     if (
-      drag.offsetX >= x.getPixelForValue(min) - 10 &&
-      drag.offsetX <= x.getPixelForValue(min) + 10
+      drag.offsetX >=
+        x.getPixelForValue(myChart.config.options.scales.x.min) - 10 &&
+      drag.offsetX <=
+        x.getPixelForValue(myChart.config.options.scales.x.min) + 10
     ) {
       canvas.onmousemove = (e) => {
         dragMove(myChart, e);
       };
 
-      // dragMove
+      // dragMovefn
       function dragMove(myChart, dragDelta) {
         //  const min = chart.config.options.scales.x.min;
         //  const max = chart.config.options.scales.x.max;
@@ -665,14 +674,16 @@ function zoomBox(min, max) {
     }
     // right button drag
     if (
-      drag.offsetX >= x.getPixelForValue(max) - 10 &&
-      drag.offsetX <= x.getPixelForValue(max) + 10
+      drag.offsetX >=
+        x.getPixelForValue(myChart.config.options.scales.x.max) - 10 &&
+      drag.offsetX <=
+        x.getPixelForValue(myChart.config.options.scales.x.max) + 10
     ) {
       canvas.onmousemove = (e) => {
         dragMove(myChart, e);
       };
 
-      // dragMove
+      // dragMovefn
       function dragMove(myChart, dragDelta) {
         //  const min = chart.config.options.scales.x.min;
         //  const max = chart.config.options.scales.x.max;
