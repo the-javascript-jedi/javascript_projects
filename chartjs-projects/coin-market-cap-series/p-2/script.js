@@ -113,6 +113,37 @@ const dottedLine = {
     //  label ends
   },
 };
+// plugin - imageLogo
+const logo = new Image();
+logo.src = "./images/bat-symbol.png";
+const imageLogo = {
+  id: "imageLogo",
+  // beforeDatasetsDraw or afterDatasetsDraw
+  beforeDatasetsDraw(chart, args, pluginOptions) {
+    const {
+      ctx,
+      chartArea: { top, bottom, left, right },
+      scales: { x, y },
+    } = chart;
+    ctx.save();
+    const imgWidth = 40;
+    const imgHeight = 20;
+    // if image is loaded
+    if (logo.complete) {
+      // ctx.drawImage(url,x,y,imgWidth,imgHeight);
+      ctx.drawImage(
+        logo,
+        right - imgWidth,
+        y.getPixelForValue(9),
+        imgWidth,
+        imgHeight
+      );
+    } else {
+      logo.onload = () => chart.draw();
+    }
+    ctx.restore();
+  },
+};
 // config block
 const config = {
   type: "line",
@@ -156,7 +187,7 @@ const config = {
       },
     },
   },
-  plugins: [dottedLine],
+  plugins: [dottedLine, imageLogo],
 };
 // getGradient function
 function getGradient(ctx, chartArea, data, scales) {
