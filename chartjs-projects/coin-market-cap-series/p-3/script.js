@@ -474,6 +474,7 @@ const data2 = {
       fill: true,
       pointRadius: 0,
       pointHoverRadius: 0,
+      pointHitRadius: 0,
     },
   ],
 };
@@ -484,6 +485,8 @@ const config2 = {
   type: "line",
   data: data2,
   options: {
+    // animation: false is done for loading the zoombox onload
+    animation: false,
     layout: {
       padding: {
         // adjust the padding
@@ -527,9 +530,13 @@ const config2 = {
 
 // render init block
 const myChart2 = new Chart(document.getElementById("myChart2"), config2);
-
+// initialize the zoom box
+window.onload = function () {
+  zoomBox(dates[0], dates[dates.length - 1]);
+};
 // zoombox - zoom for second chart
 function zoomBox(min, max) {
+  console.log("onload zoomBox");
   myChart2.update("none");
   const {
     ctx,
@@ -560,7 +567,7 @@ function zoomBox(min, max) {
     ctx.lineWidth = 2;
     ctx.fillStyle = "#FFF";
     // ctx.arc(x,y,radius,startAngle,endAngle,clockwise)
-    ctx.arc(position, height / 2, 10, angle * 0, angle * 360, false);
+    ctx.arc(position, height / 2, 5, angle * 0, angle * 360, false);
     ctx.fill();
     ctx.stroke();
     ctx.closePath();
