@@ -661,8 +661,23 @@ function zoomBox(min, max) {
         const timestamp = x.getValueForPixel(dragDelta.offsetX);
         const dayTimestamp = new Date(timestamp).setHours(0, 0, 0, 0);
         // scrollPoint - where we are scrolling for zoom
-        const scrollPoint = dates.indexOf(dayTimestamp);
-        console.log("scrollPoint--second chart", scrollPoint);
+        let scrollPoint = dates.indexOf(dayTimestamp);
+        console.log("scrollPoint--left--second chart", scrollPoint);
+        // make sure left drag stops at the left hoverbox end and does not go over the chart boundary
+        if (dragDelta.offsetX < left && scrollPoint === -1) {
+          scrollPoint = 0;
+        }
+        //avoid overlapping of min hoverbox with max hoverbox  by 1 item
+        if (dragDelta.offsetX > right && scrollPoint === -1) {
+          scrollPoint = dates.indexOf(myChart.config.options.scales.x.max) - 1;
+        }
+        // scrollpoint value must not exceed the large value
+        if (
+          scrollPoint >
+          dates.indexOf(myChart.config.options.scales.x.max) - 1
+        ) {
+          scrollPoint = dates.indexOf(myChart.config.options.scales.x.max) - 1;
+        }
 
         // change the main chart scale based on the bottom chart
         myChart.config.options.scales.x.min = dates[scrollPoint];
@@ -691,8 +706,24 @@ function zoomBox(min, max) {
         const timestamp = x.getValueForPixel(dragDelta.offsetX);
         const dayTimestamp = new Date(timestamp).setHours(0, 0, 0, 0);
         // scrollPoint - where we are scrolling for zoom
-        const scrollPoint = dates.indexOf(dayTimestamp);
-        console.log("scrollPoint--second chart", scrollPoint);
+        let scrollPoint = dates.indexOf(dayTimestamp);
+        console.log("scrollPoint--right--second chart", scrollPoint);
+        // make sure right drag stops at the right hoverbox end and does not go over the chart boundary
+        if (dragDelta.offsetX > right && scrollPoint === -1) {
+          scrollPoint = dates.length - 1;
+        }
+        //avoid overlapping of min hoverbox with max hoverbox by 1 item
+        if (dragDelta.offsetX < left && scrollPoint === -1) {
+          scrollPoint = dates.indexOf(myChart.config.options.scales.x.min) + 1;
+        }
+        // scrollpoint value must not be less than the min value
+        if (
+          scrollPoint <
+          dates.indexOf(myChart.config.options.scales.x.min) + 1
+        ) {
+          scrollPoint = dates.indexOf(myChart.config.options.scales.x.min) + 1;
+        }
+
         // change the main chart scale based on the bottom chart
         myChart.config.options.scales.x.max = dates[scrollPoint];
         myChart.update("none");
