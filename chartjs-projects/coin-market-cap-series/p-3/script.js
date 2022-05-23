@@ -608,11 +608,14 @@ function zoomBox(min, max) {
   // the mouse will hover and show a drag cursor when we are on the howerbox buttons
   function mouseCursor(mousemove) {
     // console.log("mousemove.offsetX", mousemove.offsetX);
+    let minChart1 = myChart.config.options.scales.x.min;
+    // check for undefined
+    if (minChart1 === undefined || minChart1 === -1) {
+      minChart1 = dates[0];
+    }
     if (
-      (mousemove.offsetX >=
-        x.getPixelForValue(myChart.config.options.scales.x.min) - 10 &&
-        mousemove.offsetX <=
-          x.getPixelForValue(myChart.config.options.scales.x.min) + 10) ||
+      (mousemove.offsetX >= x.getPixelForValue(minChart1) - 10 &&
+        mousemove.offsetX <= x.getPixelForValue(minChart1) + 10) ||
       (mousemove.offsetX >=
         x.getPixelForValue(myChart.config.options.scales.x.max) - 10 &&
         mousemove.offsetX <=
@@ -621,8 +624,7 @@ function zoomBox(min, max) {
       // box sides
       canvas.style.cursor = "ew-resize";
     } else if (
-      mousemove.offsetX >
-        x.getPixelForValue(myChart.config.options.scales.x.min) + 10 &&
+      mousemove.offsetX > x.getPixelForValue(minChart1) + 10 &&
       mousemove.offsetX <
         x.getPixelForValue(myChart.config.options.scales.x.max) - 10
     ) {
@@ -642,12 +644,15 @@ function zoomBox(min, max) {
   });
   // dragStartfn
   function dragStart(drag) {
+    let minChart1 = myChart.config.options.scales.x.min;
+    // check for undefined
+    if (minChart1 === undefined || minChart1 === -1) {
+      minChart1 = dates[0];
+    }
     // left button drag
     if (
-      drag.offsetX >=
-        x.getPixelForValue(myChart.config.options.scales.x.min) - 10 &&
-      drag.offsetX <=
-        x.getPixelForValue(myChart.config.options.scales.x.min) + 10
+      drag.offsetX >= x.getPixelForValue(minChart1) - 10 &&
+      drag.offsetX <= x.getPixelForValue(minChart1) + 10
     ) {
       canvas.onmousemove = (e) => {
         dragMove(myChart, e);
