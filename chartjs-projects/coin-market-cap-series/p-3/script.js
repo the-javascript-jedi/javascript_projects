@@ -693,7 +693,7 @@ function zoomBox(min, max) {
         myChart.update("none");
         myChart2.update("none");
         // adjust the scroll box on right side
-        zoomBoxItem(dates[scrollPoint], max);
+        zoomBoxItem(dates[scrollPoint], myChart.config.options.scales.x.max);
       }
     }
     // right button drag
