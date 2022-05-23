@@ -741,6 +741,58 @@ function zoomBox(min, max) {
         zoomBoxItem(myChart.config.options.scales.x.min, dates[scrollPoint]);
       }
     }
+    // Move the howerbox on click
+    // check if the clicked area is inside the hoverbox
+    if (
+      drag.offsetX >
+        x.getPixelForValue(myChart.config.options.scales.x.min) + 11 &&
+      drag.offsetX <
+        x.getPixelForValue(myChart.config.options.scales.x.max) - 11
+    ) {
+      // mousemove
+      canvas.onmousemove = (e) => {
+        dragMoveCenter(myChart, e);
+      };
+      // dragMoveCenterfn
+      function dragMoveCenter(myChart, dragDelta) {
+        // starting point
+        // console.log("center portion hoverbox mousemoved");
+        const dragStartingPoint = x.getValueForPixel(drag.offsetX);
+        const dayDragStartingPoint = new Date(dragStartingPoint).setHours(
+          0,
+          0,
+          0,
+          0
+        );
+        // startingPointIndex - starting point where we are scrolling after clicking in the zoombox
+        let dragStart = dates.indexOf(dayDragStartingPoint);
+        console.log("startingPointIndex--dragMoveCenter", dragStart);
+        // difference between clicked starting point and where we are dragging movement
+        //minus means after click left drag
+        //positive means after click right drag
+        const timestamp = x.getValueForPixel(dragDelta.offsetX);
+        const dayTimestamp = new Date(timestamp).setHours(0, 0, 0, 0);
+        // scrollPoint - where we are scrolling for zoom
+        let scrollPoint = dates.indexOf(dayTimestamp);
+        const difference = scrollPoint - dragStart;
+        console.log("difference", difference);
+        let minChart1 =
+          dates[
+            dates.indexOf(myChart.config.options.scales.x.min) + difference
+          ];
+        let maxChart1 =
+          dates[
+            dates.indexOf(myChart.config.options.scales.x.max) + difference
+          ];
+        if (maxChart1 === undefined) {
+          maxChart1 = dates[dates.length - 1];
+        }
+        myChart.update("none");
+        myChart2.update("none");
+        // adjust the scroll box on right side
+        zoomBoxItem(minChart1, maxChart1);
+      }
+    }
   }
 }
 // resize the chart issue
