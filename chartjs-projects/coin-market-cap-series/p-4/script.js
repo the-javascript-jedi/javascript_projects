@@ -653,6 +653,7 @@ function zoomBox(min, max) {
     if (minChart1 === undefined || minChart1 === -1) {
       minChart1 = dates[0];
     }
+
     // left button drag
     if (
       drag.offsetX >= x.getPixelForValue(minChart1) - 10 &&
@@ -775,18 +776,53 @@ function zoomBox(min, max) {
         // scrollPoint - where we are scrolling for zoom
         let scrollPoint = dates.indexOf(dayTimestamp);
         const difference = scrollPoint - dragStart;
+        // this difference is used so that the dragging of the howerbox does not alter after zoomin in main chart
+        let difference2 = 0;
+
+        if (dragDelta.movementX > 0) {
+          difference2 = 1;
+        }
+        if (dragDelta.movementX < 0) {
+          difference2 = -1;
+        }
         console.log("difference", difference);
         let minChart1 =
           dates[
-            dates.indexOf(myChart.config.options.scales.x.min) + difference
+            dates.indexOf(myChart.config.options.scales.x.min) + difference2
           ];
         let maxChart1 =
           dates[
-            dates.indexOf(myChart.config.options.scales.x.max) + difference
+            dates.indexOf(myChart.config.options.scales.x.max) + difference2
           ];
+        //undefined check
+        if (minChart1 === undefined) {
+          minChart1 = dates[0];
+        }
         if (maxChart1 === undefined) {
           maxChart1 = dates[dates.length - 1];
         }
+        //when the left drag position of hoverbox is last value
+        if (minChart1 === dates[0]) {
+          myChart.config.options.scales.x.max = dates[0];
+          //update max value to that current moment
+          myChart.config.options.scales.x.max =
+            myChart.config.options.scales.x.max;
+        } else if (maxChart1 === dates[dates.length - 1]) {
+          myChart.config.options.scales.x.min =
+            myChart.config.options.scales.x.min;
+          //update max value to that current moment
+          myChart.config.options.scales.x.max = dates[dates.length - 1];
+        } else if (
+          myChart.config.options.scales.x.min >= dates[0] &&
+          myChart.config.options.scales.x.max <= dates[dates.length - 1]
+        ) {
+          myChart.config.options.scales.x.min = minChart1;
+          myChart.config.options.scales.x.max = maxChart1;
+        }
+        // // update min and max of top chart
+        // myChart.config.options.scales.x.min = minChart1;
+        // myChart.config.options.scales.x.max = maxChart1;
+
         myChart.update("none");
         myChart2.update("none");
         // adjust the scroll box on right side
