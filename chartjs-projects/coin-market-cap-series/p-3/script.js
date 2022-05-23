@@ -552,6 +552,10 @@ function zoomBox(min, max) {
   zoomBoxItem(min, max);
   // zoomBoxItemfn - function
   function zoomBoxItem(min, max) {
+    // undefined check
+    if (min === undefined || min === -1) {
+      min = dates[0];
+    }
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = "rgba(54,162,235,0.5)";
@@ -639,7 +643,7 @@ function zoomBox(min, max) {
     dragStart(e);
   });
   // when we stop dragging - simple hover means the position is not tracked
-  canvas.addEventListener("mouseup", (e) => {
+  window.addEventListener("mouseup", (e) => {
     canvas.onmousemove = null;
   });
   // dragStartfn
@@ -739,3 +743,12 @@ function zoomBox(min, max) {
     }
   }
 }
+// resize the chart issue
+window.addEventListener("resize", (e) => {
+  myChart2.resize();
+  // pass the zooming min max values to second
+  zoomBox(
+    myChart2.config.options.scales.x.min,
+    myChart2.config.options.scales.x.max
+  );
+});
