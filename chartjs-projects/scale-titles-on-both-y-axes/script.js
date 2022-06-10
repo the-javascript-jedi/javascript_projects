@@ -5,17 +5,21 @@ const data = {
     {
       label: "Weekly Sales",
       data: [18, 12, 6, 9, 12, 3, 9],
-      backgroundColor: [
-        "rgba(255, 26, 104, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-        "rgba(0, 0, 0, 0.2)",
-      ],
+      backgroundColor: ["rgba(255, 26, 104, 0.2)"],
       borderWidth: 1,
-      // borderColor: ["rgba(255,26,104,1)"],
+      borderColor: ["rgba(255,26,104,1)"],
+      tension: 0.4,
+      borderWidth: 2,
+    },
+    {
+      label: "Weekly Cost",
+      data: [9, 3, 12, 18, 21, 33, 24],
+      backgroundColor: ["rgba(0, 0, 0, 1)"],
+      borderWidth: 1,
+      borderColor: ["rgba(0, 0, 0, 1)"],
+      tension: 0.4,
+      // default is y
+      yAxisID: "percentage",
       borderWidth: 2,
     },
   ],
@@ -24,12 +28,34 @@ const data = {
 
 // config block
 const config = {
-  type: "bar",
+  type: "line",
   data: data,
   options: {
     scales: {
+      x: {
+        // title on x axis --bottom
+        title: {
+          display: true,
+          text: "Days of the week",
+        },
+      },
       y: {
         beginAtZero: true,
+        // title on y axis --left
+        title: {
+          display: true,
+          text: "Weekly sales in $",
+        },
+      },
+      // y second axis
+      percentage: {
+        beginAtZero: true,
+        position: "right",
+        // title on y axis --right
+        title: {
+          display: true,
+          text: "Weekly cost in percentage",
+        },
       },
     },
   },
