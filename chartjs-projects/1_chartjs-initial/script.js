@@ -17,6 +17,8 @@ const data = {
       borderWidth: 1,
       // borderColor: ["rgba(255,26,104,1)"],
       borderWidth: 2,
+      // bar width
+      barPercentage: 0.5,
     },
   ],
 };
