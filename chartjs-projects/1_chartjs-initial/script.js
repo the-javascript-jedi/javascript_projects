@@ -30,6 +30,12 @@ const config = {
   data: data,
   options: {
     scales: {
+      // aligns the grid on the grid line when false
+      x: {
+        grid: {
+          offset: true,
+        },
+      },
       y: {
         beginAtZero: true,
       },
