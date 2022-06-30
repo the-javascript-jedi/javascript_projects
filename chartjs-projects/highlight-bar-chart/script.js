@@ -38,19 +38,34 @@ const highlightBar = {
     console.log("dropdown value", vote.value);
     const index = chart.data.labels.indexOf(vote.value);
     if (index >= 0) {
-      const { ctx } = chart;
+      const {
+        ctx,
+        chartArea: { top, bottom },
+      } = chart;
       // calculate x and y coordinate
       const x = chart.getDatasetMeta(0).data[index].x;
       const y = chart.getDatasetMeta(0).data[index].y;
-      // angle half circle
-      const angle = Math.PI / 180;
+      //// draw circle on top --starts
+      //// angle half circle
+      // const angle = Math.PI / 180;
+      // ctx.beginPath();
+      // // color of ball
+      // ctx.fillStyle = chart.data.datasets[0].borderColor[index];
+      // // ctx.arc(x,y,radius,angleForStarting,angleForEnding,counterclockwise)
+      // ctx.arc(x, y, 10, angle * 0, angle * 360, false);
+      // ctx.fill();
+      // ctx.closePath();
+      //// draw circle on top --ends
+      /**/
+      //// draw line on --start
       ctx.beginPath();
-      // color of ball
-      ctx.fillStyle = chart.data.datasets[0].borderColor[index];
-      // ctx.arc(x,y,radius,angleForStarting,angleForEnding,counterclockwise)
-      ctx.arc(x, y, 10, angle * 0, angle * 360, false);
-      ctx.fill();
-      ctx.closePath();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(0,0,200,1)";
+      ctx.moveTo(x, bottom);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.save();
+      //// draw line on ends
     }
   },
 };
