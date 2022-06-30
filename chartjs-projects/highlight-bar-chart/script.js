@@ -47,20 +47,20 @@ const highlightBar = {
       const y = chart.getDatasetMeta(0).data[index].y;
       //// draw circle on top --starts
       //// angle half circle
-      // const angle = Math.PI / 180;
-      // ctx.beginPath();
-      // // color of ball
-      // ctx.fillStyle = chart.data.datasets[0].borderColor[index];
-      // // ctx.arc(x,y,radius,angleForStarting,angleForEnding,counterclockwise)
-      // ctx.arc(x, y, 10, angle * 0, angle * 360, false);
-      // ctx.fill();
-      // ctx.closePath();
+      const angle = Math.PI / 180;
+      ctx.beginPath();
+      // color of ball
+      ctx.fillStyle = chart.data.datasets[0].borderColor[index];
+      // ctx.arc(x,y,radius,angleForStarting,angleForEnding,counterclockwise)
+      ctx.arc(x, y, 10, angle * 0, angle * 360, false);
+      ctx.fill();
+      ctx.closePath();
       //// draw circle on top --ends
       /**/
       //// draw line on --start
       ctx.beginPath();
       ctx.lineWidth = 3;
-      ctx.strokeStyle = "rgba(0,0,200,1)";
+      ctx.strokeStyle = chart.data.datasets[0].borderColor[index];
       ctx.moveTo(x, bottom);
       ctx.lineTo(x, y);
       ctx.stroke();
