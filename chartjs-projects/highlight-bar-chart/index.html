@@ -11,6 +11,14 @@
         <div class="chartBox">
             <canvas id="myChart"></canvas>
         </div>
+        <div>
+            <select onchange="selectedVote(this)" id="vote">
+                <option value="">Please select a Value</option>
+                <option value="Mon">Mon</option>
+                <option value="Tue">Tue</option>
+                <option value="Wed">Wed</option>
+            </select>
+        </div>
     </div>
     <!-- chart js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
