@@ -24,6 +24,10 @@ const plugin = {
     ctx.save();
     ctx.globalCompositeOperation = "destination-over";
     ctx.fillStyle = "lightGreen";
+    // positioning of background
+    // x0,y0=top starting point
+    // x1,y1=ending point
+    // full background
     ctx.fillRect(0, 0, chart.width, chart.height);
     ctx.restore();
   },
