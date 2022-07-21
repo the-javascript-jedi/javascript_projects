@@ -34,6 +34,8 @@ const config = {
       x: {
         grid: {
           offset: true,
+          // dont-display-grid lines
+          display: true,
         },
       },
       y: {
