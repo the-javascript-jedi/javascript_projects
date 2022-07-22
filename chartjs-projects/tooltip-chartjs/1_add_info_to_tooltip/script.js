@@ -35,6 +35,19 @@ const config = {
     // tooltip - plugins
     plugins: {
       tooltip: {
+        backgroundColor: "green",
+        borderColor: "red",
+        borderWidth: 1,
+        titleColor: "black",
+        titleAlign: "center",
+        displayColors: true,
+        // to display point style comment boxWidth and boxHeight
+        boxWidth: 0,
+        boxHeight: 0,
+        bodyAlign: "center",
+        usePointStyle: true,
+        // arrow icon in tooltip
+        yAlign: "bottom",
         callbacks: {
           beforeTitle: function (context) {
             return "Before the title";
@@ -59,9 +72,17 @@ const config = {
           beforeLabel: function (context) {
             return "beforeLabel";
           },
-          label: function (context) {
-            // no tooltip color is shown
-            // return context;
+          // label: function (context) {
+          //   // return context;
+          // },
+          labelTextColor: function (context) {
+            return "red";
+          },
+          labelPointStyle: function (context) {
+            return {
+              pointStyle: "star",
+              rotation: 0,
+            };
           },
           afterLabel: function (context) {
             return "afterLabel";
