@@ -1,0 +1,8 @@
+.chartBox {
+  width: 80%;
+  height: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  border: solid 1px greenyellow;
+  background: white;
+}
