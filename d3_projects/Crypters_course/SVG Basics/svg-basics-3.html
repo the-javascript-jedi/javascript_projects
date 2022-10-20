@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>SVG Basics</title> 
+    <style>
+        g
+        {
+            stroke:blue;
+            fill:green;
+        }
+    </style>
+</head>
+<body>
+    <svg width="600" height="600">
+        <!-- g element is a container -->
+        <!-- other shapes can be added inside g element -->
+         <!-- <g stroke="blue" fill="green" transform="translate(100,0)">
+            <rect x="10" y="10" width="100" height="50"></rect>
+            <circle cx="50" cy="150" r="30"></circle>
+            <polygon points="50,250 100,250 75,275"></polygon>
+        </g> -->
+        
+        <!-- <rect x="150" y="20" width="50" height="30" style="fill:none;stroke:deeppink;"></rect> -->
+        <!-- translate the second rectangle to move to right from first rectangle -->
+        <!-- <rect x="150" y="20" width="50" height="30" style="fill:deeppink;"
+              transform="translate(50,50)"></rect>         
+        <rect x="50" y="50" width="100" height="100" style="fill:none;stroke:olive;"></rect> -->
+        <!-- rotation -->
+        <!--rotate(75,75,75) degree,x-location,ylocation-->
+        <!-- <rect x="50" y="50" width="100" height="100" style="fill:olive;" transform="rotate(75,75,75)"></rect>        
+        <rect x="50" y="50" width="100" height="100" style="fill:none;stroke:indigo;"></rect> -->
+        <!-- scale -->
+        <!-- <rect x="50" y="50" width="100" height="100" style="fill:indigo;" transform="scale(2,3)"></rect> --> -->
+        <!-- circle -->
+         <circle cx="100" cy="100" r="50" style="fill:none;stroke:indigo;"></circle>
+        <circle cx="100" cy="100" r="75" style="fill:indigo;" transform="scale(2,1)"></circle> 
+    </svg>
+</body>
+</html>

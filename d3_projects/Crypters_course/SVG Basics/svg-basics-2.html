@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>SVG Basics 2</title>
+    <style>
+        svg
+        {
+            background: pink;
+        }
+        polygon
+        {
+            fill:purple;
+            stroke:green;
+            stroke-width:5;
+        }
+        polyline
+        {
+            stroke:blue;
+            stroke-width:5;
+            fill:none;
+        }
+        path
+        {
+            fill:green;
+            stroke:blue;
+        }
+        circle
+        {
+            fill:red;
+        }
+    </style>
+</head>
+<body>
+    <svg width="600" height="600">
+        <!-- polygon is a triangle -->
+        <!-- polygon attribute is points -- each point contains two values and is separated by a space-->
+        <!-- i)simple triangle -->
+        <!-- <polygon points="450,100 550,100 500,200"></polygon> -->
+        <!-- ii)hexagon -->
+        <!-- <polygon points="100,100 200,100 300,200 200,300 100,300 0,200"></polygon>  -->
+        <!-- iii)filled with black points -->
+        <!-- creates a step like figure -->
+        <!-- <polyline points="0,50 50,50 50,100 100,100 100,150 150,150 150,200"></polyline> -->
+        <!-- iv)path is used to do complex designs -->
+        <!-- M specifies MoveTo -->
+        <!-- L specifies LineTo -->
+        <!-- h horizontal line(no Y) small h-relative, CAPS H-absolute moves from last ending value -->
+        <!-- v vertical line(no Y) -->
+        <!-- Z close the line -->
+        <path d="M10 10 L100 50 h50 v150 L50 100 Z"></path>
+        
+        <!-- <path d="M50 100 h100 v100 L50 200"></path>
+        <circle cx="50" cy="100" r="5"></circle>
+        <circle cx="150" cy="100" r="5"></circle>
+        <circle cx="150" cy="200" r="5"></circle>
+        <circle cx="50" cy="200" r="5"></circle> -->
+    </svg>
+</body>
+</html>
