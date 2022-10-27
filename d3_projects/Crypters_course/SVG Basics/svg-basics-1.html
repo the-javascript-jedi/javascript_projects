@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Introduction</title>
+    <style>
+        svg
+        {
+            background: pink;
+        }
+        /* add stroke to display the line */
+        line
+        {
+            stroke:red;
+            stroke-width:15;
+        }
+        rect, circle, ellipse
+        {
+            stroke:red;
+            opacity:.5;
+            stroke-width:5;
+            fill:blue;
+        }
+        text
+        {
+            fill:green;
+        }
+    </style>
+</head>
+<body>
+    <svg width="600" height="600">
+        <!-- x1,y2 - starting, x2,y2 - ending -->
+        <line x1="0" y1="0" x2="100" y2="100" />
+        <rect x="120" y="120" width="100" height="50"></rect>
+        <!-- cx,cy center points -->
+        <circle cx="350" cy="150" r="50"></circle>
+        <!-- cx,cy center points , rx -horizontal radius ry vertical radius points -->
+        <ellipse cx="350" cy="350" rx="100" ry="50"></ellipse>
+        <text x="100" y="20">SVG Basics</text>
+    </svg>
+    
+</body>
+</html>
