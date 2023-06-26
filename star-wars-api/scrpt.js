@@ -19,7 +19,7 @@ fetch("http://127.0.0.1:8001/user/", {
   cache: "no-cache",
   credentials: "include",
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huIiwiZXhwIjoxNjg3NDA3MzkwfQ.nYN_jJZRl5iMKUlElp9vacKA-6uzLId-IoBymfQTf7k`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huIiwiZXhwIjoxNjg3NDExOTM3fQ.sIkXXjtecBMaZMQQRFd7pgkuE1UG_M6J0-x4jHQ79o4`,
     "X-Custom-Header": "header value",
   },
 })
