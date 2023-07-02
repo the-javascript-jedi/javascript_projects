@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excell to Json Table</title>
+</head>
+<body>
+    <div class="conatiner mt-5">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <input class="form-control" type="file" id="file_upload" accept=".xls,.xlsx">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" id="button" onclick="upload()">Convert</button>
+            </div>
+            <div class="col-md-12">
+                <pre id="json-result"></pre>
+            </div>
+        </div>
+    </div>
+    <!-- scripts -->
+    <script src="./script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.min.js"></script>
+
+</body>
+</html>
