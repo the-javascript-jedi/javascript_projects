@@ -86,14 +86,14 @@ const groupBy = (array, key) => {
 const groupedData = groupBy(dummy_data, "cdets_id");
 console.log("groupedData", groupedData);
 
-// var resultArray = [];
-// for (const [key, value] of Object.entries(groupedData)) {
-//   var customObj = {};
-//   //   customObj["cdets_id"] = key;
-//   customObj["cdets_id"] = key;
-//   customObj["cdets_link"] = value[0].cdets_link;
-//   customObj["sr_all_data"] = value.map((val) => val.sr_data);
-//   resultArray.push(customObj);
-// }
+var resultArray = [];
+for (const [key, value] of Object.entries(groupedData)) {
+  var customObj = {};
+  //   customObj["cdets_id"] = key;
+  customObj["cdets_id"] = key;
+  customObj["cdets_link"] = value[0].cdets_link;
+  customObj["sr_all_data"] = value.map((val) => val.sr_data).flat(); //flatten the array of arrays
+  resultArray.push(customObj);
+}
 
-// console.log("resultArray", resultArray);
+console.log("resultArray", resultArray);
