@@ -14,9 +14,6 @@ var reponseArray = [
 
 reponseArray.forEach(function (res) {
   console.log("res.dumpdata", res.dumpdata);
-  //2023-08-20
-  var convertedDate = res.dumpdata;
-  console.log("convertedDate", convertedDate);
-  res.dumpdata = new Date(convertedDate);
+  res.dumpdata = dayjs(res.dumpdata).format("DD MMM YYYY"); // '25/01/2019'
 });
 console.log("reponseArray", reponseArray);
