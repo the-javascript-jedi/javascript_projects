@@ -7,9 +7,14 @@ function setup() {
 
 function draw() {
   background(0);
-  for (var i = 0; i < bubbles.length; i++) {
-    bubbles[i].move();
+  // go in reverse
+  for (var i = bubbles.length - 1; i >= 0; i--) {
+    bubbles[i].update();
     bubbles[i].display();
+    // if the lifespan(alpha color) specified is less than 0 remove val from array
+    if (bubbles[i].isFinished()) {
+      bubbles.splice(i, 1);
+    }
   }
 }
 function mousePressed() {
