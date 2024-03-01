@@ -15,6 +15,11 @@ let draw_color = "black";
 let draw_width = "2";
 let is_drawing = false;
 
+// array for storing drawpath
+let restore_array = [];
+// on each draw the index is incremented
+let index = -1;
+
 // events - starting and drawing
 // mobile/ipad events
 canvas.addEventListener("touchstart", start, false);
@@ -61,15 +66,45 @@ function stop(event) {
     is_drawing = false;
   }
   event.preventDefault();
+  console.log(
+    "context.getImageData(0, 0, canvas.width, canvas.height)",
+    context.getImageData(0, 0, canvas.width, canvas.height)
+  );
+  if (event.type != "mouseout") {
+    // create a copy of the drawpath
+    restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height));
+    // increment index
+    // index += 1;
+    index = index + 1;
+  }
+  console.log("restore_array", restore_array);
 }
 
+// change color of pen
 function change_color(element) {
-  console.log("change_color - element", element);
+  // console.log("change_color - element", element);
   draw_color = element.style.background;
 }
 
+// clear the canvas
 function clear_canvas() {
   context.fillStyle = start_background_color;
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.fillRect(0, 0, canvas.width, canvas.height);
+  // reset the index array
+  restore_array = [];
+  index = -1;
+}
+
+// create an array that saves every draw path
+function undo_last() {
+  if (index <= 0) {
+    clear_canvas();
+  } else {
+    // index -= 1; //index = index - 1
+    index = index - 1;
+    restore_array.pop();
+    // remove the previous draw
+    context.putImageData(restore_array[index], 0, 0);
+  }
 }
