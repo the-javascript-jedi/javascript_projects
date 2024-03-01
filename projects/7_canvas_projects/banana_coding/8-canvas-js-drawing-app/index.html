@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-canvas-js-drawing-app</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="field">
+        <canvas id="canvas"></canvas>
+        <div class="tools">
+            <button type="button" class="button">Undo</button>
+            <button type="button" class="button">Clear</button>
+
+            <div class="color-field" style="background:red"></div>
+            <div class="color-field" style="background:blue"></div>
+            <div class="color-field" style="background:green"></div>
+            <div class="color-field" style="background:yellow"></div>
+
+            <input type="color" class="color-picker">
+            <input type="range" min="1" max="100" class="pen-range">
+        </div>
+    </div>
+    <!-- script path -->
+    <script src="./script.js"></script>
+</body>
+</html>
