@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Selection</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <span>First Span</span>
+        <p>First Paragraph</p>
+        <p>Second Paragraph</p>
+        <p>Third Paragraph</p>
+        <span>Second Span</span>
+        <p>This is about <span id="inside">Selections</span></p>
+        <!-- test -->
+        <p class="testPara">First Paragraph</p>
+        <p class="testPara">Second Paragraph</p>
+        <p class="testPara">Third Paragraph</p>
+    </div>
+    <script>
+        //  to select the elements we need to specify the d3 object like we specify the $ symbol in jquery
+        // select & selectAll is used to select elements
+        // select using the html tag
+        d3.select("div").style("background", "green");
+        // // select the first occurence of p
+        d3.select("p").style("color", "blue");
+
+        // selectAll p elements
+        d3.selectAll("p").style("color", "red");
+        // // select using the id
+        // d3.select("#container").style("background", "yellow");
+        // d3.select("#inside").style("background", "orange");
+        // // using class name
+        // d3.selectAll(".testPara").style("background", "aquamarine");
+    </script>
+</body>
+</html>

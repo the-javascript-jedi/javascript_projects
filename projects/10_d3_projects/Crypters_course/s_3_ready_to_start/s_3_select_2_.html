@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Selection 2</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <svg width="400" height="100" id="one">
+        <circle cx="40" cy="50" r="40"></circle>
+        <circle cx="130" cy="50" r="40"></circle>
+        <circle cx="220" cy="50" r="40"></circle>
+        <circle cx="310" cy="50" r="40"></circle>
+    </svg><br /><br />
+    <svg width="400" height="100" id="two">
+        <circle cx="40" cy="50" r="40"></circle>
+        <circle cx="130" cy="50" r="40"></circle>
+        <circle cx="220" cy="50" r="40"></circle>
+        <circle cx="310" cy="50" r="40"></circle>
+    </svg>
+    <script>
+        // select all circle tags
+        // d3.selectAll("circle").style("fill", "indigo");
+
+        // select svg id two and color all children with tag as circle
+        // d3.selectAll("#two > circle").style("fill", "deeppink");  
+        
+        // only color the second child of all circles
+        // d3.selectAll("circle:nth-child(2)").style("fill", "indigo");
+
+        // color all even circles one color and odd circles in another color
+        // d3.selectAll("circle:nth-child(even)").style("fill", "indigo");
+        // d3.selectAll("circle:nth-child(odd)").style("fill", "deeppink");
+
+        // in svg#one color all even children and in in svg#two color all odd children
+        // d3.selectAll("#one > circle:nth-child(even), #two > circle:nth-child(odd) ").style("fill", "indigo");
+
+        // in svg#one color all odd children and in in svg#two color all even children
+        d3.selectAll("#one > circle:nth-child(odd), #two > circle:nth-child(even)").style("fill", "deeppink");
+    </script>
+</body>
+</html>
