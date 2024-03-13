@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Class</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .changeColor {
+            stroke: indigo;
+            fill: deeppink;
+            stroke-width: 4;
+        }
+
+        .boxes {
+            width: 100px;
+            height: 100px;
+            border: 3px solid black;
+            background: pink;
+            float: left;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="addClass();">Change</button>
+    <button onclick="changeBack();">Back</button><br /><br />
+    <svg width="500" height="200">
+        <circle cx="50" cy="50" r="40"></circle>
+        <circle cx="140" cy="50" r="40"></circle>
+        <circle cx="230" cy="50" r="40"></circle>
+        <circle cx="320" cy="50" r="40"></circle>
+    </svg><br /><br />
+    <button onclick="addBoxes();">Add</button>
+    <div id="parent">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        // .classed - add or remove classes to an element
+        // true to add class, false to remove class
+        function addBoxes() {             
+            d3.selectAll("#parent > div").classed("boxes", true);
+        }
+        // add a class to all circles
+        function addClass() {
+            d3.selectAll("circle").classed("changeColor", true);
+        }
+        // remove classes only for even circles
+        function changeBack() {
+            d3.selectAll("circle").classed("changeColor", function (d, i) {
+                if (i % 2 == 0)
+                    return true;
+                else
+                    return false;
+            });
+        }
+    </script>
+</body>
+
+</html>
