@@ -1,0 +1,47 @@
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <title>Style</title>
+        <script src="https://d3js.org/d3.v5.min.js"></script>    
+    </head>
+    <body>
+        <button onclick="changeLook();">Update</button><br /><br />
+        <svg width="600" height="600">
+            <circle cx="50" cy="50" r="40"></circle>
+            <circle cx="140" cy="50" r="40"></circle>
+            <circle cx="230" cy="50" r="40"></circle>
+            <circle cx="320" cy="50" r="40"></circle>
+            <!-- transform - translate(20 to right, 120 bottom) -->
+            <g transform="translate(20,120)">
+                <rect width="50" height="50"></rect>
+                <!-- y position is relative to the g transform position -->
+                <rect width="50" height="50" y="60"></rect>
+                <rect width="50" height="50" y="120"></rect>
+                <rect width="50" height="50" y="180"></rect>
+            </g>
+        </svg>
+        <script>
+            function changeLook()
+            {
+                // style the circles
+                d3.selectAll("circle").style("fill", "deeppink")
+                .style("stroke", "indigo").style("stroke-width", strokeWidth);
+
+                // style the rectangles
+                //d3.selectAll("rect").style("stroke", "blue");
+                d3.selectAll("rect").style("fill", "indigo").style("stroke", "deeppink").style("stroke-width", "4");
+                // set opacity randomly for the rectangles
+                d3.selectAll("rect").style("opacity", function(){
+                    return Math.random();
+                })
+            }
+            
+            function strokeWidth(data,index){
+                // data is undefined
+                console.log("data",data);
+                console.log("index",index);
+                    return index*5;
+                }
+        </script>
+    </body>    
+    </html>
