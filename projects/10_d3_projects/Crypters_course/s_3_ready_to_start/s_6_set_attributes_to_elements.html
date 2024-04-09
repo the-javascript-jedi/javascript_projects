@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Attribute</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>    
+</head>
+<body> 
+    <button onclick="update();">Change</button>
+    <button onclick="reduceSize();">Reduce Size Randomly</button>
+    <button onclick="reduceSizeConstant();">Reduce Size Constant</button>
+    <input type="checkbox" /><br /><br />
+    <svg width="600" height="600">
+        <g transform="translate(40,40)">
+            <circle r="40"></circle>
+            <circle r="40" cx="120"></circle>
+            <circle r="40" cx="240"></circle>
+            <circle r="40" cx="360"></circle>
+            <circle r="40" cx="480"></circle>
+        </g>        
+    </svg>
+    <script>
+        function update()
+        {
+            //d3.selectAll("circle").attr("r", "10");
+            
+            /*d3.selectAll("circle").attr("r", function(){
+                return Math.random()*40;
+            });*/
+            
+            d3.selectAll("circle").attr("cy", function(d,i){
+                return i*90;
+            });
+            
+            d3.select("input[type=checkbox]").property("checked", true);
+        }
+
+        function reduceSize(){
+            d3.selectAll("circle").attr("r", function () {
+                return Math.random() * 40;
+            });
+        }
+
+        function reduceSizeConstant(){
+            d3.selectAll("circle").attr("r", "10");
+        }
+    </script>
+</body>    
+</html>
