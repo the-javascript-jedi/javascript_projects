@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Content</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>    
+</head>
+<body>
+    <button onclick="update();">Change</button>
+    <p>First Paragraph</p>
+    <div>Here goes the result..</div>
+    <span></span>
+    <script>
+        function update()
+        {
+            d3.select("p").text("New Content");
+            d3.select("div").html("<b>New Content</b>");
+            d3.select("span").text("New Content");
+        }
+    </script>
+</body>    
+</html>
