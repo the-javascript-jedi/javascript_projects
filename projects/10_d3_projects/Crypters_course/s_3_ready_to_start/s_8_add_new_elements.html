@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Append & Insert</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <button onclick="appendElement();">Append Element</button>
+    <button onclick="addElement();">Add Element</button>
+    <div id="parent">
+        <p>First Paragraph</p>
+        <p>Second Paragraph</p>
+        <p>Third Paragraph</p>
+    </div>
+    <script>
+        function appendElement(){
+            // appends to the last
+             d3.select("#parent").append("p").text("Last Paragraph").style("font-weight", "bold");
+        }
+        function addElement() {
+            // adds element based on position of nth-child number
+            d3.select("#parent").insert("p", "p:nth-child(1)").text("Paragraph").style("font-weight", "bold");
+        }
+    </script>
+</body>
+
+</html>
