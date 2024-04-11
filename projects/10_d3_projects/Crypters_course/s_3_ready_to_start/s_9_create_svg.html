@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Hands-On: SVG On the Fly</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="addSVG();">Add</button><br />
+    <script>
+        function addSVG() {
+            // create svg
+            var svg = d3.select("body").append("svg").attr("width", 200).attr("height", 200).style("background", "pink");
+            // append a indigo rectangle
+            svg.append("rect").attr("width", 50).attr("height", 50).style("fill", "indigo")
+            // append a circle
+            svg.append("circle").attr("r",20).attr("cx",100).attr("cy",100);
+            // create a g element - g element is a container and we add a circle to it
+            svg.append("g").attr("transform", "translate(65,100)")
+                .append("circle").attr("r", 20).style("fill", "deeppink");
+        }
+
+    </script>
+</body>
+
+</html>
