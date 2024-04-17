@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Data</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <svg width="600" height="600">
+        <circle></circle>
+        <circle></circle>
+        <circle></circle>
+        <circle></circle>
+        <circle></circle>
+    </svg>
+    <script>
+        var myDetails = [{ radius: 20, x: 50, y: 50, color: "red" },
+        { radius: 25, x: 150, y: 50, color: "deeppink" },
+        { radius: 30, x: 250, y: 50, color: "indigo" },
+        { radius: 35, x: 350, y: 50, color: "pink" },
+        { radius: 40, x: 450, y: 50, color: "green" }];
+        d3.selectAll("circle").data(myDetails)
+            // specify the radius of circle
+            .attr("r", function (d, i) { return d.radius; })
+            // specify the x of the circle
+            .attr("cx", function (d) { return d.x; })
+            // specify the y of the circle
+            .attr("cy", function (d) { return d.y; })
+            // specify the fill colcor
+            .attr("fill", function (d) { return d.color; });
+    </script>
+</body>
+</html>

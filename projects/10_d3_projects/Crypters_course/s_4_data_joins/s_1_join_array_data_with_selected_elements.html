@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Data</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        .changeColor {
+            background: deeppink;
+            color: indigo;
+            width: 50px;
+        }
+        p{
+            margin:20px
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex;flex-direction: row;">
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+        <script>
+        var myData = [50, 45, 35, 30, 25];
+        d3.selectAll("p").data(myData).text(function (d, i) {
+            return d;
+        }).style("font-size", function (d) {
+            // set the font size as the array value
+            return d + "px";
+        }).classed("changeColor", function (d) {
+            // add class change color if value is greater than 30
+            return d > 30;
+        });
+    </script>
+</body>
+</html>
