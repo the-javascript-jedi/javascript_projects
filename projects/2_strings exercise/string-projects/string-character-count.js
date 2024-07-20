@@ -1,4 +1,5 @@
-let stringText = "nithin";
+// string character count
+let stringText = "apple 1231111";
 let splitText = stringText.split("");
 let obj = {};
 
@@ -10,7 +11,7 @@ splitText.forEach((val) => {
   }
 });
 
-console.log(obj);
+console.log("obj", obj);
 // expected O/P
 /*
 {
