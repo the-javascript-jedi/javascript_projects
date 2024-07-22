@@ -1,6 +1,5 @@
 console.log("commonly-used-character loaded");
 let stringTest = "nithin";
-
 const charMap = {};
 // create object with count of string values
 for (let stringVal of stringTest) {
@@ -19,7 +18,10 @@ for (let char in charMap) {
     maxChar = char;
   }
 }
-
 console.log("charMap", charMap);
 console.log("max", max);
 console.log("maxChar", maxChar);
+// // O/P
+// charMap {n: 2, i: 2, t: 1, h: 1}h: 1i: 2n: 2t: 1[[Prototype]]: Object
+// commonly-used-character.js:24 max 2
+// commonly-used-character.js:25 maxChar n
