@@ -13,9 +13,18 @@ function findVowels(str) {
     }
   });
   console.log("obj", obj);
+
+  let count=0;
+  for (const property in obj) {
+    console.log(`${property}: ${obj[property]}`);
+    if(vowels.includes(property)){
+      count=count+obj[property]
+    }
+  }
+  console.log("count",count)
 }
 
-findVowels("Hi There"); //3
+findVowels("Hi Thereeeeee"); //3
 
 // function findVowelsCount(str) {
 //     const vowels = ['a', 'e', 'i', 'o', 'u'];
@@ -31,4 +40,4 @@ findVowels("Hi There"); //3
 // }
 
 // // Example usage
-// console.log(findVowelsCount("Hi There")); // Output: 3
+// console.log(findVowelsCount("Hi Thereeeee")); // Output: 3
