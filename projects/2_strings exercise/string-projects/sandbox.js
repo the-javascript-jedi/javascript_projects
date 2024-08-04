@@ -1,43 +1,23 @@
-function findVowels(str) {
-  // let letters = str.split("");
-  // console.log("letters", letters);
+(function () {
+  var counter = 0;
 
-  let vowels = ["a", "e", "i", "o", "u"];
-  let obj = {};
-  str.split("").forEach((val) => {
-    // debugger;
-    if (obj[val]) {
-      obj[val] = obj[val] + 1;
-    } else {
-      obj[val] = 1;
-    }
-  });
-  console.log("obj", obj);
-
-  let count=0;
-  for (const property in obj) {
-    console.log(`${property}: ${obj[property]}`);
-    if(vowels.includes(property)){
-      count=count+obj[property]
-    }
+  function increment() {
+    counter++;
+    console.log("counter", counter);
   }
-  console.log("count",count)
+
+  increment();
+  increment();
+})();
+
+// call apply bind
+
+function greet(greeting) {
+  console.log(greeting + "" + this.name);
 }
 
-findVowels("Hi Thereeeeee"); //3
+const person = {
+  name: "test",
+};
 
-// function findVowelsCount(str) {
-//     const vowels = ['a', 'e', 'i', 'o', 'u'];
-//     let count = 0;
-
-//     for (let char of str.toLowerCase()) {
-//         if (vowels.includes(char)) {
-//             count++;
-//         }
-//     }
-
-//     return count;
-// }
-
-// // Example usage
-// console.log(findVowelsCount("Hi Thereeeee")); // Output: 3
+greet.apply(person, ["hello"]);
