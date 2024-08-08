@@ -1,23 +1,13 @@
-(function () {
-  var counter = 0;
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Promise 1 Resolved");
+  }, 200);
+});
 
-  function increment() {
-    counter++;
-    console.log("counter", counter);
-  }
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Promise 2 Resolved");
+  }, 3000);
+});
 
-  increment();
-  increment();
-})();
-
-// call apply bind
-
-function greet(greeting) {
-  console.log(greeting + "" + this.name);
-}
-
-const person = {
-  name: "test",
-};
-
-greet.apply(person, ["hello"]);
+Promise.allSettled([promise1, promise2]).then((val) => console.log(val));
