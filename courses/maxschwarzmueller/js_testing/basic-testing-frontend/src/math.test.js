@@ -33,5 +33,11 @@ it("should yield 0 if an empty array is provided", () => {
 });
 
 it("should throw an error if no value is passed into the function", () => {
-  const result = add();
+  const resultFn = () => {
+    add();
+  };
+  // not an error example
+  // expect(resultFn).not.toThrow();
+  // error example
+  expect(resultFn).toThrow();
 });
