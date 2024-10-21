@@ -7,8 +7,8 @@
 // console.log(validateIbanCode("AT123456789012345678")); // returns true
 // console.log(validateIbanCode("INVALIDCODE")); // returns false
 // console.log(validateIbanCode("fr12 3456 7890 1234 56789012 345")); // returns true
+//   const regex = /((FR|Fr|FR|fr)\s[0-9]{1}\s([0-9]{4}\s){5}[0-9]{1})|((AT|At|aT|at)\d{18})$/;
 function validateIbanCodeNoSpaces(input) {
-  //   const regex = /((FR|Fr|FR|fr)\s[0-9]{1}\s([0-9]{4}\s){5}[0-9]{1})|((AT|At|aT|at)\d{18})$/;
   const regex = /^((FR|Fr|FR|fr)\s[0-9]{1}\s([0-9]{4}\s){5}[0-9]{4})$/;
   return regex.test(input);
 }
