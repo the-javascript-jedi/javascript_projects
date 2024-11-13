@@ -1,22 +1,23 @@
-const vowels = ["a", "e", "i", "o", "u"];
-function findVowels(str) {
-  let vowelsFound = "";
-  str.split("").forEach((val) => {
-    if (vowels.includes(val)) {
-      vowelsFound = vowelsFound + val;
+function lengthOfLongestSubstring(str) {
+  let maxLength = 0;
+  for (let i = 0; i < str.length; i++) {
+    let substring = "";
+    for (let j = i; j < str.length; j++) {
+      const currentChar = str[j];
+      if (substring.includes(currentChar)) {
+        break;
+      }
+      substring = substring + currentChar;
+      if (substring.length > maxLength) {
+        maxLength = substring.length;
+      }
     }
-  });
-  console.log("vowelsFound", vowelsFound);
+    console.log("substring", substring);
+    return maxLength;
+  }
 }
 
-function findVowelsCount(str) {
-  let count = 0;
-  str.split("").forEach((val) => {
-    if (vowels.includes(val)) {
-      count++;
-    }
-  });
-  return count;
-}
-console.log("findVowelsCount", findVowelsCount("abceiddeoo"));
-console.log("findVowels", findVowels("abceioo"));
+// Example usage:
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3
+// console.log(lengthOfLongestSubstring("bbbbb")); // Output: 1
+// console.log(lengthOfLongestSubstring("pwwkew")); // Output: 3
