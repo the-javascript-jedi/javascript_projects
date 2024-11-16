@@ -1,22 +1,11 @@
-const vowels = ["a", "e", "i", "o", "u"];
-function findVowels(str) {
-  let vowelsFound = "";
-  str.split("").forEach((val) => {
-    if (vowels.includes(val)) {
-      vowelsFound = vowelsFound + val;
+var moveZeroes = function (nums) {
+  let countZeroes = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] == 0) {
+      countZeroes++;
     }
-  });
-  console.log("vowelsFound", vowelsFound);
-}
-
-function findVowelsCount(str) {
-  let count = 0;
-  str.split("").forEach((val) => {
-    if (vowels.includes(val)) {
-      count++;
-    }
-  });
-  return count;
-}
-console.log("findVowelsCount", findVowelsCount("abceiddeoo"));
-console.log("findVowels", findVowels("abceioo"));
+  }
+  console.log("countZeroes", countZeroes);
+};
+// Example usage:
+console.log(moveZeroes([0, 1, 0, 3, 12])); // Output: 3
