@@ -1,10 +1,11 @@
-function isAnagram(s, t) {
-  let first = s.split("").sort().join("");
-  let second = t.split("").sort().join("");
-  return first == second;
-  console.log("first", first);
-  console.log("second", second);
-}
-
+var moveZeroes = function (nums) {
+  let countZeroes = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] == 0) {
+      countZeroes++;
+    }
+  }
+  console.log("countZeroes", countZeroes);
+};
 // Example usage:
-console.log(isAnagram("car", "rac")); // Output: 3
+console.log(moveZeroes([0, 1, 0, 3, 12])); // Output: 3
