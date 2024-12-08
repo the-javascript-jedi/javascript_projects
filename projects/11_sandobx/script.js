@@ -1,14 +1,8 @@
-function maxSubArray(nums) {
-  let maxVal = nums[0];
+function twoSum(nums, target) {
+  // Your code here
+  let result = [];
   for (let i = 0; i < nums.length; i++) {
-    let currentSum = 0;
-    for (let j = i; j < nums.length; j++) {
-      currentSum = currentSum + nums[j];
-      if (currentSum > maxVal) {
-        maxVal = currentSum;
-      }
-    }
+    for (let j = 0; j < nums.length; j++) {}
   }
-  return maxVal;
 }
-console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // 6
+console.log(twoSum([2, 7, 11, 15], 9)); // [0, 1]
