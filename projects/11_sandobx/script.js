@@ -1,55 +1,32 @@
-// console.log("data", data);
-console.log("_", _);
-let transactions = data.transaction;
-// let displayTransactions = transactions.splice(0, 1);
-// console.log("displayTransactions", displayTransactions);
-// Assuming `transactions` is your array of transactions
-const groupedTransactions = _.groupBy(
-  transactions,
-  (transaction) => transaction.receiver.uid
-);
-console.log("groupedTransactions", groupedTransactions);
-
-const formattedData = Object.entries(groupedTransactions).map(
-  ([uid, transactions]) => {
-    console.log("uid, transactions", uid, transactions);
-    // Calculate total received amount and transfer fee
-    const totalReceivedAmount = transactions.reduce(
-      (sum, transaction) =>
-        sum +
-        (transaction.payment_details.destination.actual_payout_amount || 0),
-      0
-    );
-
-    const totalTransferFee = transactions.reduce(
-      (sum, transaction) =>
-        sum + (transaction.payment_details.fees.charges || 0),
-      0
-    );
-
-    // Build the formatted object for each receiver
-    return {
-      receiverName:
-        transactions[0].receiver.name.first_name +
-        " " +
-        transactions[0].receiver.name.last_name,
-      receiverUid: uid,
-      totalReceivedAmount: totalReceivedAmount.toString(),
-      totalTransferFee: totalTransferFee.toString(),
-      transactionDetails: transactions.map((transaction) => ({
-        fillingDate: transaction.filing_date,
-        receiverCorridor: transaction.receiver.address.country_iso_code || "",
-        deliveryMethod:
-          transaction.payment_details.payment_method.payment_type || "",
-        transactionId: transaction.money_transfer_control.mtcn || "",
-        sendAmount:
-          transaction.payment_details.origination.principal_amount || "",
-        transferFee: transaction.payment_details.fees.charges || "",
-        amountReceived:
-          transaction.payment_details.destination.actual_payout_amount || "",
-      })),
-    };
+function findTwoNumbers(nums, target) {
+  let result = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) {
+        result.push(nums[i], nums[j]);
+      }
+    }
   }
-);
-console.log(formattedData);
-//////////////////////////////////////////////////////////////////////////////
+  return result;
+}
+
+// Example Usage
+console.log(findTwoNumbers([1, 3, 4, 5, 6], 10)); // Output: [2, 7]
+
+//////////////////////////////////////////////////////////////////
+// function findTwoNumbers(nums, target) {
+//   for (var i = 0; i < nums.length; i++) {
+//     for (var j = i + 1; j < nums.length; j++) {
+//       if (nums[i] + nums[j] === target) {
+//         return [nums[i], nums[j]]; // Return the two numbers
+//       }
+//     }
+//   }
+//   return null; // Return null if no such pair is found
+// }
+
+// // Example Usage
+console.log(findTwoNumbers([2, 7, 11, 15], 9)); // Output: [2, 7]
+console.log(findTwoNumbers([1, 3, 4, 5, 6], 10)); // Output: [4, 6]
+console.log(findTwoNumbers([5, 1, 2, 8], 7)); // Output: [5, 2]
+console.log(findTwoNumbers([1, 2, 3], 7)); // Output: null
