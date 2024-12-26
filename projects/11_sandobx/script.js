@@ -1,12 +1,28 @@
-function fibonacci(n) {
-  let fibSequence = [0, 1];
-  for (let i = 2; i < n; i++) {
-    fibSequence.push(fibSequence[i - 2] + fibSequence[i - 1]);
+function mostFrequentElement(arr) {
+  let numCount = {};
+  let maxCount = 0;
+  let maxElement = "";
+  arr.forEach((val) => {
+    console.log(val);
+    if (numCount[val]) {
+      numCount[val] = numCount[val] + 1;
+    } else {
+      numCount[val] = 1;
+    }
+  });
+
+  for (let key in numCount) {
+    console.log("key", key);
+    if (numCount[key] > maxCount) {
+      maxCount = numCount[key];
+      maxElement = key;
+    }
   }
-  return fibSequence;
+  console.log("numCount", numCount);
+  console.log("maxCount", maxCount);
+  console.log("maxElement", maxElement);
 }
 
-// Example usage:
-console.log(fibonacci(5)); // Output: 5
-console.log(fibonacci(10)); // Output: 55
-console.log(fibonacci(20)); // Output: 6765
+// Test
+var arr = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4];
+console.log(mostFrequentElement(arr)); // 4
