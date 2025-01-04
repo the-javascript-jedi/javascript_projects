@@ -1,16 +1,26 @@
-function twoSum(nums, target) {
-  // console.log("nums", nums);
-  // console.log("target", target);
-  let sum = 0;
-  let resultArr = [];
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = i; j < nums.length; j++) {
-      if (nums[i] + nums[j] == target) {
-        resultArr.push([i, j]);
-      }
+function canFormPalindrome(str) {
+  var charCount = {};
+  for (let char of str) {
+    if (charCount[char]) {
+      charCount[char] = charCount[char] + 1;
+    } else {
+      charCount[char] = 1;
     }
   }
-  console.log("resultArr", resultArr);
+  console.log("charCount", charCount);
+  let oddCount = 0;
+  Object.values(charCount).forEach((val) => {
+    if (val % 2 == 1) {
+      oddCount++;
+    }
+  });
+  console.log("oddCount", oddCount);
+  if (oddCount > 1) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
-console.log(twoSum([2, 7, 11, 15], (target = 9)));
+// Test
+console.log(canFormPalindrome("tactcoa")); // true
