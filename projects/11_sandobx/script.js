@@ -1,26 +1,41 @@
-function canFormPalindrome(str) {
-  var charCount = {};
-  for (let char of str) {
-    if (charCount[char]) {
-      charCount[char] = charCount[char] + 1;
-    } else {
-      charCount[char] = 1;
+function lengthOfLongestSubstring(str) {
+  // Handle empty string
+  if (!str) {
+    return 0;
+  }
+
+  var maxLength = 0;
+  var start = 0;
+  var charMap = {};
+
+  for (var i = 0; i < str.length; i++) {
+    var currentChar = str[i];
+
+    // If we've seen this character before and its index is >= start
+    if (charMap[currentChar] >= start) {
+      // Move start to the position after the previous occurrence
+      start = charMap[currentChar] + 1;
+    }
+
+    // Store the current character's position
+    charMap[currentChar] = i;
+
+    // Update maxLength if current substring is longer
+    var currentLength = i - start + 1;
+    if (currentLength > maxLength) {
+      maxLength = currentLength;
     }
   }
-  console.log("charCount", charCount);
-  let oddCount = 0;
-  Object.values(charCount).forEach((val) => {
-    if (val % 2 == 1) {
-      oddCount++;
-    }
-  });
-  console.log("oddCount", oddCount);
-  if (oddCount > 1) {
-    return false;
-  } else {
-    return true;
-  }
+
+  return maxLength;
 }
 
-// Test
-console.log(canFormPalindrome("tactcoa")); // true
+// Test cases
+console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3
+console.log(lengthOfLongestSubstring("bbbbb")); // Output: 1
+console.log(lengthOfLongestSubstring("pwwkew")); // Output: 3
+console.log(lengthOfLongestSubstring("")); // Output: 0
+console.log(lengthOfLongestSubstring("au")); // Output: 2
+
+
+
