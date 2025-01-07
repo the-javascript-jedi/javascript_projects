@@ -1,16 +1,15 @@
-function lengthOfLongestSubstring(s) {
-  let maxlength = 0;
-  for (let i = 0; i < s.length; i++) {
-    for (let j = i; j < s.length; j++) {
-      let substring = s.slice(i, j + 1);
-      console.log("substring", substring);
-      if (substring.indexOf(s[j]) !== substring.lastIndexOf(s[j])) {
-        break;
-      }
-      maxlength = Math.max(maxlength, substring.length);
-    }
-  }
-  return maxlength;
-}
+title = 'angular-sandbox';
 
-console.log(lengthOfLongestSubstring("abcabcbb")); // Output: 3
+  countryList=["India","America"];
+  statesAll={
+    "India":["TN","AP"],
+    "America":["NY","Chicago"]
+  }
+  stateList=[];
+
+  getSelectedData(selectedCountry){
+    console.log("getSelectedData-selectedCountry",selectedCountry);
+    this.stateList=this.statesAll[selectedCountry];
+    console.log("this.stateList",this.stateList)
+
+  }
