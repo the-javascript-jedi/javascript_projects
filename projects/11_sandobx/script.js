@@ -1,15 +1,15 @@
-title = 'angular-sandbox';
+function logNumbersOnce(n) {
+  let current = 1; // Start from 1
+  const intervalId = setInterval(() => {
+    console.log(current);
+    current++; // Increment the number
+    if (current > n) {
+      clearInterval(intervalId); // Stop the interval after reaching n
+    }
+  }, 1000); // Adjust the interval (1000ms = 1 second)
+}
 
-  countryList=["India","America"];
-  statesAll={
-    "India":["TN","AP"],
-    "America":["NY","Chicago"]
-  }
-  stateList=[];
+// Call the function with the desired value of n
+logNumbersOnce(5);
 
-  getSelectedData(selectedCountry){
-    console.log("getSelectedData-selectedCountry",selectedCountry);
-    this.stateList=this.statesAll[selectedCountry];
-    console.log("this.stateList",this.stateList)
-
-  }
+// setInterval(() => {});
