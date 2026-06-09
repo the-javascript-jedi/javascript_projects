@@ -1,48 +1,50 @@
-// // brute force
-// function countUniqueValues(arr) {
-//   let set = new Set(arr);
-//   console.log(set.size);
-// }
+// Brute force
+function sameFrequency(val1, val2) {
+  let value1 = Number(String(val1).split("").sort().join(""));
+  let value2 = Number(String(val2).split("").sort().join(""));
+  if (value1 === value2) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-// function countUniqueValues(arr) {
-//   if (arr.length === 0) return 0;
+// Optimal solution
+function sameFrequency(val1, val2) {
+  // Convert both numbers to strings so we can loop through each digit
+  const str1 = String(val1);
+  const str2 = String(val2);
 
-//   let i = 0;
+  // If lengths differ, they can't have the same frequency — exit early
+  if (str1.length !== str2.length) return false;
 
-//   for (let j = 1; j < arr.length; j++) {
-//     if (arr[i] !== arr[j]) {
-//       i++;
-//       arr[i] = arr[j];
-//     }
-//   }
-//   // console.log("i", i);
-//   return i + 1;
-// }
+  let freq = {};
 
-// optimized solution
-function countUniqueValues(arr) {
-  // i points to the position of the last unique value found
-  let i = 0;
-
-  // j scans through the array looking for new unique values
-  for (let j = 1; j < arr.length; j++) {
-    // If the values at i and j are different,
-    // we have found a new unique value
-    if (arr[i] !== arr[j]) {
-      // Move i forward to the next position
-      i++;
-
-      // Store the new unique value at index i
-      arr[i] = arr[j];
+  // Build a frequency counter from the first number
+  // e.g. 182 → { '1': 1, '8': 1, '2': 1 }
+  for (let char of str1) {
+    if (freq[char]) {
+      freq[char]++; // digit already seen, increment count
+    } else {
+      freq[char] = 1; // digit seen for the first time, set to 1
     }
   }
 
-  // Since i is an index (starting at 0),
-  // the number of unique values is i + 1
-  return i + 1;
+  // Now check the second number against the counter
+  for (let char of str2) {
+    if (!freq[char]) {
+      // Digit doesn't exist or already used up (0) — mismatch found!
+      return false;
+    }
+    // Digit matched, decrement so it can't be reused
+    freq[char]--;
+  }
+
+  // All digits matched and consumed — same frequency!
+  return true;
 }
 
-console.log(countUniqueValues([1, 1, 1, 1, 1, 2]));
-console.log(countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13])); // 7
-console.log(countUniqueValues([])); // 0
-console.log(countUniqueValues([-2, -1, -1, 0, 1])); // 4
+console.log(sameFrequency(182, 281)); // true
+console.log(sameFrequency(34, 14)); // false
+console.log(sameFrequency(3589578, 5879385)); // true
+console.log(sameFrequency(22, 222)); // false
