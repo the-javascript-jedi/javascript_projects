@@ -1,13 +1,15 @@
-// Brute force
-function sameFrequency(val1, val2) {
-  let value1 = Number(String(val1).split("").sort().join(""));
-  let value2 = Number(String(val2).split("").sort().join(""));
-  if (value1 === value2) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// // Brute force
+// function areThereDuplicates(...args) {
+//   // Compare every pair with nested loops
+//   for (let i = 0; i < args.length; i++) {
+//     for (let j = i + 1; j < args.length; j++) {
+//       if (args[i] === args[j]) {
+//         return true; // found a duplicate pair
+//       }
+//     }
+//   }
+//   return false;
+// }
 
 // Optimal solution
 function sameFrequency(val1, val2) {
@@ -44,7 +46,17 @@ function sameFrequency(val1, val2) {
   return true;
 }
 
-console.log(sameFrequency(182, 281)); // true
-console.log(sameFrequency(34, 14)); // false
-console.log(sameFrequency(3589578, 5879385)); // true
-console.log(sameFrequency(22, 222)); // false
+function areThereDuplicates(...args) {
+  for (let i = 0; i < args.length; i++) {
+    for (let j = i + 1; j < args.length; j++) {
+      if (args[i] === args[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+console.log(areThereDuplicates(1, 2, 3)); // false
+console.log(areThereDuplicates(1, 2, 2)); // true
+console.log(areThereDuplicates("a", "b", "c", "a")); // true
