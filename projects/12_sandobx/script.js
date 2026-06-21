@@ -1,62 +1,29 @@
-// // Brute force
-// function areThereDuplicates(...args) {
-//   // Compare every pair with nested loops
-//   for (let i = 0; i < args.length; i++) {
-//     for (let j = i + 1; j < args.length; j++) {
-//       if (args[i] === args[j]) {
-//         return true; // found a duplicate pair
-//       }
-//     }
+// function constructNote(val1, val2) {
+//   let freq = {};
+
+//   // count characters available in val2 (the source)
+//   for (let char of val2) {
+//     freq[char] = (freq[char] || 0) + 1;
 //   }
-//   return false;
+
+//   // check if val1 can be built from those characters
+//   for (let char of val1) {
+//     if (!freq[char]) {
+//       // character missing or used up
+//       return false;
+//     }
+//     freq[char]--; // consume one occurrence
+//   }
+
+//   return true;
 // }
 
-// Optimal solution
-function sameFrequency(val1, val2) {
-  // Convert both numbers to strings so we can loop through each digit
-  const str1 = String(val1);
-  const str2 = String(val2);
+// console.log(constructNote("aa", "abc")); // false
+// console.log(constructNote("abc", "dcba")); // true
+// console.log(constructNote("aabbcc", "bcabcaddff")); // true
 
-  // If lengths differ, they can't have the same frequency — exit early
-  if (str1.length !== str2.length) return false;
+function constructNote(str1, str2) {}
 
-  let freq = {};
-
-  // Build a frequency counter from the first number
-  // e.g. 182 → { '1': 1, '8': 1, '2': 1 }
-  for (let char of str1) {
-    if (freq[char]) {
-      freq[char]++; // digit already seen, increment count
-    } else {
-      freq[char] = 1; // digit seen for the first time, set to 1
-    }
-  }
-
-  // Now check the second number against the counter
-  for (let char of str2) {
-    if (!freq[char]) {
-      // Digit doesn't exist or already used up (0) — mismatch found!
-      return false;
-    }
-    // Digit matched, decrement so it can't be reused
-    freq[char]--;
-  }
-
-  // All digits matched and consumed — same frequency!
-  return true;
-}
-
-function areThereDuplicates(...args) {
-  for (let i = 0; i < args.length; i++) {
-    for (let j = i + 1; j < args.length; j++) {
-      if (args[i] === args[j]) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-console.log(areThereDuplicates(1, 2, 3)); // false
-console.log(areThereDuplicates(1, 2, 2)); // true
-console.log(areThereDuplicates("a", "b", "c", "a")); // true
+console.log(constructNote("aa", "abc")); // false
+console.log(constructNote("abc", "dcba")); // true
+console.log(constructNote("aabbcc", "bcabcaddff")); // true
