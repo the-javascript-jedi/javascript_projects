@@ -1,27 +1,29 @@
-function areThereDuplicates(...args) {
-  // console.log("args", args);
-  let freq = {};
-  for (let i = 0; i < args.length; i++) {
-    // console.log(args[i]);
-    if (freq[args[i]]) {
-      freq[args[i]]++;
-    } else {
-      freq[args[i]] = 1;
-    }
-  }
-  console.log("freq", freq);
+/*
+ * Problem: Swap Two Numbers
+ * Given two numbers, swap their values without using a third variable
+ * to hold both at once (a single temp slot is fine).
+ *
+ * Input:  a = 10, b = 20
+ * Output: [20, 10]
+ *
+ * Approach: Save a's original value in temp before overwriting a,
+ * then assign temp back into b. Saving b first would lose a's value
+ * before it's ever read.
+ * Time complexity: O(1)
+ */
+function swapTwoNumbers(a, b) {
+  let temp = 0;
 
-  for (let char in freq) {
-    // if(freq)
-    // console.log("char", char);
-    // console.log("freq[char]", freq[char]);
-    if (freq[char] > 1) {
-      return true;
-    } else {
-    }
-  }
-  return false;
+  // Preserve a's original value before it gets overwritten below
+  temp = a;
+
+  // a now takes b's value
+  a = b;
+
+  // b takes a's original value, held in temp
+  b = temp;
+
+  return [a, b];
 }
-console.log("areThereDuplicates(1, 2, 3)", areThereDuplicates(1, 2, 3));
-console.log("areThereDuplicates(1, 2, 2)", areThereDuplicates(1, 2, 2));
-console.log("areThereDuplicates(", areThereDuplicates("a", "b", "c", "a"));
+
+console.log(swapTwoNumbers(10, 20)); // [20, 10]
