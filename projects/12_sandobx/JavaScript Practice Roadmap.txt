@@ -1,0 +1,123 @@
+JavaScript Practice Roadmap
+Level 1 – Variables & Basics
+Swap two numbers.
+Find the largest of three numbers.
+Check if a number is even or odd.
+Check if a year is a leap year.
+Print numbers from 1 to N.
+Print the multiplication table of a number.
+Find the factorial of a number.
+Reverse a number.
+Count the digits in a number.
+Check if a number is a palindrome.
+
+Level 2 – Strings
+Reverse a string.
+Check if a string is a palindrome.
+Count vowels.
+Count consonants.
+Remove spaces.
+Count occurrences of a character.
+Find the longest word.
+Capitalize every word.
+Check if two strings are anagrams.
+Find the first non-repeating character.
+
+Level 3 – Arrays
+Find the largest element.
+Find the smallest element.
+Find the second largest.
+Reverse an array.
+Remove duplicates.
+Merge two arrays.
+Find duplicate values.
+Rotate an array.
+Move zeros to the end.
+Find the missing number.
+
+Level 4 – Functions
+Write a function to calculate BMI.
+Convert Celsius to Fahrenheit.
+Check if a number is prime.
+Generate Fibonacci numbers.
+Implement a calculator using functions.
+Write your own max() function.
+Create a recursive factorial function.
+Sum all arguments using rest parameters.
+Return the longest string from an array.
+Implement a custom range() function.
+
+Level 5 – Objects
+Create a Student object.
+Loop through object properties.
+Clone an object.
+Merge two objects.
+Count object keys.
+Find the highest-scoring student.
+Group students by grade.
+Freeze an object.
+Deep copy an object.
+Convert an object to an array.
+
+Level 6 – ES6+
+Practice destructuring.
+Practice spread operator.
+Practice rest parameters.
+Use template literals.
+Convert function declarations to arrow functions.
+Use default parameters.
+Use optional chaining.
+Use nullish coalescing.
+Use Map.
+Use Set to remove duplicates.
+
+Level 7 – Array Methods
+
+Without using loops where possible:
+
+map()
+filter()
+reduce()
+find()
+findIndex()
+some()
+every()
+sort()
+flat()
+flatMap()
+
+Level 8 – DOM
+Change text on button click.
+Change background color.
+Build a counter.
+Character counter.
+Password show/hide.
+Image slider.
+To-do list.
+Form validation.
+Live search filter.
+Dark mode toggle.
+
+Level 9 – Async JavaScript
+Use setTimeout().
+Use setInterval().
+Create a Promise.
+Consume a Promise.
+Fetch data from an API.
+Rewrite with async/await.
+Handle fetch errors.
+Load multiple APIs with Promise.all().
+Debounce a search input.
+Build a simple weather app.
+
+Level 10 – Mini Projects
+Calculator
+To-do App
+Quiz App
+Notes App
+Weather App
+Expense Tracker
+Countdown Timer
+Stopwatch
+Memory Card Game
+Movie Search App
